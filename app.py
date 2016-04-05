@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask
+from flask import Flask, request, render_template
 
 app = Flask(__name__, static_url_path='')
 
@@ -10,6 +10,11 @@ def hello():
 @app.route('/')
 def root():
 	return app.send_static_file('index.html')
+
+@app.route('/profile', methods=['POST'])
+def search():
+	print(request.form['search'])
+	return render_template('profile.html', search=request.form['search'])
 
 
 if __name__ == '__main__':
