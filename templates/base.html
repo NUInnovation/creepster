@@ -6,12 +6,8 @@
 	</head>
 	<body>
 
-		 <h1>creepster: find out what other people know about you </h1>
-
-		<form action="profile" method="post">
-		  <input type="text" name="search" placeholder="enter a name...">
-			<input type="submit" name="Submit">
-		</form>
+    {% block content %}
+    {% endblock %}
 
 		<script src="{{ url_for('static', filename='scripts/jquery-1.12.3.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>

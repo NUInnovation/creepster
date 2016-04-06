@@ -1,6 +1,8 @@
-<!doctype html>
-{% if search %}
-<h1>{{search}} Profile</h1>
-{% else %}
-<h1>Something went wrong!</h1>
-{% endif %}
+{% extends 'base.html' %}
+{% block content %}
+  {% if search %}
+  <h1>{{search}} Profile</h1>
+  {% else %}
+  <h1>Something went wrong!</h1>
+  {% endif %}
+{% endblock %}

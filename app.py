@@ -1,7 +1,7 @@
 # app.py
 from flask import Flask, request, render_template
 
-app = Flask(__name__, static_url_path='static')
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/hello')
 def hello():
@@ -9,8 +9,7 @@ def hello():
 
 @app.route('/')
 def root():
-	# return app.send_static_file('index.html')
-	return render_template('index.html')
+	return render_template('home.html')
 
 @app.route('/profile', methods=['POST'])
 def search():
