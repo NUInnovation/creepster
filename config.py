@@ -1,7 +1,7 @@
 # Credentails for Twitter Application
 # Using Melanie's Twitter for Access tokens
 
-consumer_key = "QtkTf1AFZditnUGxTljcT2ozx"
-consumer_secret = "qTSqR7KVdJNKaSvI8gegIGRqdl4wEmyFnGnxAOZaIOjvNnR4Y"
-access_key = "713207514-AQs5UNiKbSY1rqqK0iGGZdjf8n24keeAL8EtgEDF"
-access_secret = "eDaOGKbLOj80nYp4ERh6cRJIfd1nKx8x67e4tIvlTn3Hb"
+consumer_key = 'pXjvkiLDVwrsERC3FJDQ87clP'
+consumer_secret = 'roJFLGlrPqjzEA8MVkisktW5vV11moFvosbHYfxK8KXyD0blCJ'
+access_token = '2787350504-0KBvCMlzd3PxkkbCSekrJaOO79HkdYUNesWTKiV'
+access_token_secret = 'OqIEDuRTxo5cXUQxFNPH1jok8EBDQ5ePPJ7pgmPK4DWcR'
