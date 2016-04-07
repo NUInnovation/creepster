@@ -16,6 +16,10 @@ def search():
 	print(request.form['search'])
 	return render_template('profile.html', search=request.form['search'])
 
+@app.route('/redirect', methods=['GET', 'POST'])
+def redirect():
+	return render_template('home.html')
+
 
 if __name__ == '__main__':
 	app.run()
