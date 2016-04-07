@@ -83,7 +83,7 @@ def aggregate_hashtags(screen_name, count):
 
 
 def main():
-	user_name = 'Erin Funk'
+	user_name = 'Miley Cyrus'
 	sn = search_username(user_name)
 	search_tweets_for_user(sn, 50)
 	print user_location(sn)

@@ -2,7 +2,11 @@
 {% block content %}
   {% if search %}
   <h1>{{search}} Profile</h1>
+  {% for ht in hashtags %}
+  	<h3>#{{ht}}</h3>
+  {% endfor %}
   {% else %}
   <h1>Something went wrong!</h1>
   {% endif %}
 {% endblock %}
+       

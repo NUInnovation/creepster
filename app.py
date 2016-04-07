@@ -1,5 +1,6 @@
 # app.py
 from flask import Flask, request, render_template
+import search_twitter
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -13,8 +14,9 @@ def root():
 
 @app.route('/profile', methods=['POST'])
 def search():
-	print(request.form['search'])
-	return render_template('profile.html', search=request.form['search'])
+	name = request.form['search']
+	hashtags = search_twitter.aggregate_hashtags(search_twitter.search_username(name), 1000)
+	return render_template('profile.html', search=name, hashtags=hashtags)
 
 
 if __name__ == '__main__':
