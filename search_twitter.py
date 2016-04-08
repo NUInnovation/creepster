@@ -81,6 +81,26 @@ def aggregate_hashtags(screen_name, count):
 	sort_hash = sorted(hashtag_map, key=hashtag_map.get, reverse=True)
 	return sort_hash[:4]
 
+def aggregate_retweets(screen_name, count):
+
+	t = Twitter(
+		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+	)
+
+	results = t.statuses.user_timeline(screen_name=screen_name, count=count)
+	retweet_map = {}
+	for tweet in results:
+		if tweet["text"].startswith('RT', 0, 2):
+			handle = tweet["retweeted_status"]["user"]["name"]
+			if not handle in retweet_map:
+				retweet_map[handle] = 1
+			else:
+				retweet_map[handle] = retweet_map[handle] + 1
+		
+
+	sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
+	return sort_tweet[:4]
+
 
 def main():
 	user_name = 'Miley Cyrus'
@@ -89,6 +109,7 @@ def main():
 	print user_location(sn)
 	print user_description(sn)
 	print aggregate_hashtags(sn, 1000)
+	print aggregate_retweets(sn, 1000)
 
 
 if __name__ == '__main__':
