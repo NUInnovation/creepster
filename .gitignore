@@ -2,3 +2,4 @@ venv
 *.pyc
 app/*.pyc
 config.py
+get_access_token.py

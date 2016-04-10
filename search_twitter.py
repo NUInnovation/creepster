@@ -1,11 +1,17 @@
 #!/usr/bin/python
 
 from twitter import *
-from config import consumer_key, consumer_secret, access_token, access_token_secret
+# from config import consumer_key, consumer_secret, access_token, access_token_secret
+from config import twitter
 
 def search_user_twitter(query):
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.users.search(q = query)
@@ -16,7 +22,12 @@ def search_user_twitter(query):
 
 def search_tweets_for_user(screen_name, count):
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.statuses.user_timeline(screen_name=screen_name, count=count)
