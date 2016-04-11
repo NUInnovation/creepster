@@ -4,6 +4,13 @@
 ## What is Creepster?
 Creepster is an simple tool that takes a person's name and searches various social media and websites to find as much "creepy" information on the person as possible. This can range from thier address to who they idolize on Twitter. The purpose of creepster is to make people aware of how much they reveal about themselves online. 
 
+#### Team Members
+* Melanie Klerer
+* Nevil George
+* Joanne Lee
+* Michael Bacos
+
+
 #### Currently Creepster searches:
 * Twitter 
 * Instagram
@@ -16,10 +23,10 @@ Creepster is an simple tool that takes a person's name and searches various soci
 
 ## How to run locally
 If you want to run Creepster on your computer, follow these steps:
-1. Download and set up [Flask](flask.pocoo.org)
-2. In the command line:
+* Download and set up [Flask](flask.pocoo.org)
+* In the command line:
 ```shell
 python app.py
 ```
-3. Open https://localhost:5000
+* Open https://localhost:5000
 
