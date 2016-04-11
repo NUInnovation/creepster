@@ -16,10 +16,10 @@ Creepster is an simple tool that takes a person's name and searches various soci
 
 ## How to run locally
 If you want to run Creepster on your computer, follow these steps:
-1) Download and set up [Flask](flask.pocoo.org)
-2) In the command line:
+1. Download and set up [Flask](flask.pocoo.org)
+2. In the command line:
 ```shell
 python app.py
 ```
-3) Open https://localhost:5000
+3. Open https://localhost:5000
 
