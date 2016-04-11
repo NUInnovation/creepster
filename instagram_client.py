@@ -1,6 +1,8 @@
 # instagram_client.py
 from config import instagram
 
+import requests
+
 class InstagramClient:
 
     def __init__(self):
