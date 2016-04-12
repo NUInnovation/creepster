@@ -15,8 +15,12 @@ def root():
 @app.route('/profile', methods=['POST'])
 def search():
 	name = request.form['search']
-	hashtags = search_twitter.aggregate_hashtags(search_twitter.search_username(name), 1000)
-	return render_template('profile.html', search=name, hashtags=hashtags)
+	screen_name = search_twitter.search_username(name)
+	twitter_loc = search_twitter.user_location(screen_name)
+	twitter_des = search_twitter.user_description(screen_name)
+	hashtags = search_twitter.aggregate_hashtags(screen_name, 3200)
+	retweet = search_twitter.aggregate_retweets(screen_name, 3200)
+	return render_template('profile.html', search=name, hashtags=hashtags, retweet=retweet, t_loc=twitter_loc, t_desc=twitter_des)
 
 @app.route('/redirect', methods=['GET', 'POST'])
 def redirect():
