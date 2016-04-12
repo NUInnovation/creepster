@@ -2,9 +2,17 @@
 {% block content %}
   {% if search %}
   <h1>{{search}} Profile</h1>
+  <h4>{{t_loc}} {{t_desc}}</h4> 
+  <h3> {{search}} is so
   {% for ht in hashtags %}
-  	<h3>#{{ht}}</h3>
+  	#{{ht}} 
   {% endfor %}
+  </h3>
+  <h3>{{search}} promotes
+  {% for rt in retweet %}
+  	{{rt}},
+  {% endfor %}
+  </h3>
   {% else %}
   <h1>Something went wrong!</h1>
   {% endif %}
