@@ -37,14 +37,24 @@ def search_tweets_for_user(screen_name, count):
 
 def is_geo_enabled(screen_name):
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 	results = t.users.search(q=screen_name, count=1)
 	return results[0]["geo_enabled"]
 
 def user_location(screen_name):
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.users.search(q=screen_name, count=1)
@@ -52,7 +62,12 @@ def user_location(screen_name):
 
 def user_description(screen_name):
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.users.search(q=screen_name, count=1)
@@ -64,8 +79,14 @@ def search_geo_for_user(screen_name, count):
 		return
 
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
+
 
 	results = t.statuses.user_timeline(screen_name=screen_name, count=count)
 
@@ -76,14 +97,19 @@ def search_geo_for_user(screen_name, count):
 def aggregate_hashtags(screen_name, count):
 
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.statuses.user_timeline(screen_name=screen_name, count=count)
 	hashtag_map = {}
 	for tweet in results:
 		for hashtag in tweet["entities"]["hashtags"]:
-			name = hashtag["text"]	
+			name = hashtag["text"]
 			if not name in hashtag_map:
 				hashtag_map[name] = 1
 			else:
@@ -95,7 +121,12 @@ def aggregate_hashtags(screen_name, count):
 def aggregate_retweets(screen_name, count):
 
 	t = Twitter(
-		auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret)
+		auth = OAuth(
+			twitter['access_token'],
+			twitter['access_token_secret'],
+			twitter['consumer_key'],
+			twitter['consumer_secret']
+		)
 	)
 
 	results = t.statuses.user_timeline(screen_name=screen_name, count=count)
@@ -107,7 +138,7 @@ def aggregate_retweets(screen_name, count):
 				retweet_map[handle] = 1
 			else:
 				retweet_map[handle] = retweet_map[handle] + 1
-		
+
 
 	sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
 	return sort_tweet[:4]
