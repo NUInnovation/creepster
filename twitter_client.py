@@ -74,3 +74,17 @@ class TwitterClient:
 
 		sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
 		return sort_tweet[:4]
+
+	def aggregate_photos(self, screen_name, count):
+		results = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+		photo_map = {}
+		for tweet in results:
+			if "media" in tweet["entities"]:
+				if not tweet["text"].startswith('RT', 0, 2):
+					media = tweet["entities"]["media"]
+					for url in media:
+						photo_map[url["media_url"]] = float(tweet["favorite_count"])
+		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
+		return sort_map[:5]
+
+

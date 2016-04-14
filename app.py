@@ -21,7 +21,8 @@ def search():
 	twitter_des = twttr.user_description(screen_name)
 	hashtags = twttr.aggregate_hashtags(screen_name, 3200)
 	retweet = twttr.aggregate_retweets(screen_name, 3200)
-	return render_template('profile.html', search=name, hashtags=hashtags, retweet=retweet, t_loc=twitter_loc, t_desc=twitter_des)
+	photo = twttr.aggregate_photos(screen_name, 1000)
+	return render_template('profile.html', search=name, hashtags=hashtags, retweet=retweet, t_loc=twitter_loc, t_desc=twitter_des, t_pic=photo)
 
 @app.route('/redirect', methods=['GET', 'POST'])
 def redirect():
