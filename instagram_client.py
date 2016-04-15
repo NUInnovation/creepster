@@ -36,3 +36,12 @@ class InstagramClient:
         response = requests.get(url)
 
         return response.json()
+
+    def aggregate_photos(self, username):
+        response = self.get_user_media(username)
+        photo_map = {}
+        for post in response["items"]:
+            photo_map[post["images"]["standard_resolution"]["url"]] = float(post["likes"]["count"]) + float(post["comments"]["count"])
+        sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
+        return sort_map[:5]
+

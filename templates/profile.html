@@ -13,6 +13,10 @@
   	{{rt}},
   {% endfor %}
   </h3>
+  <h3> {{search}} Most impactful photos on twitter </h3>
+  {% for photo in t_pic %}
+  <img src="{{photo}}" height="100" width="100" />
+  {% endfor %}
   {% else %}
   <h1>Something went wrong!</h1>
   {% endif %}
