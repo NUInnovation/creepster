@@ -25,7 +25,7 @@ Creepster is an simple tool that takes a person's name and searches various soci
 ## How to run locally
 If you want to run Creepster on your computer, follow these steps:
 ```shell
-git clone https://github.com/nevilgeorge/creepster.git
+git clone https://github.com/NUInnovation/creepster.git
 pip install -r requirements.txt
 python app.py
 ```
