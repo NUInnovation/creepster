@@ -83,7 +83,7 @@ class TwitterClient:
 				if not tweet["text"].startswith('RT', 0, 2):
 					media = tweet["entities"]["media"]
 					for url in media:
-						photo_map[url["media_url"]] = float(tweet["favorite_count"])
+						photo_map[url["media_url"]] = float(tweet["favorite_count"]) + float(tweet["retweet_count"])
 		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 		return sort_map[:5]
 
