@@ -14,6 +14,6 @@ class GeolocationClient:
         response = requests.get(self.api_url, params=params)
         # naively assumes first result is correct
         result = response.json()['results'][0]
-        coordinates = {'lat': result['geometry']['location']['lat'],'long': result['geometry']['location']['lng']}
+        coordinates = result['geometry']['location']
 
         return coordinates
