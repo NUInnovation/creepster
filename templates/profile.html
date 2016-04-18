@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
   {% if search %}
-  <h1>{{search}} Profile</h1>
-  <h4>{{t_loc}} {{t_desc}}</h4> 
-  <h3> {{search}} is so
-  {% for ht in hashtags %}
-  	#{{ht}} 
-  {% endfor %}
-  </h3>
-  <h3>{{search}} promotes
-  {% for rt in retweet %}
-  	{{rt}},
-  {% endfor %}
-  </h3>
-  <h3> {{search}} Most impactful photos on twitter </h3>
-  {% for photo in t_pic %}
-  <img src="{{photo}}" height="100" width="100" />
-  {% endfor %}
+    <h1>{{search}} Profile</h1>
+    <h4>{{t_loc}} {{t_desc}}</h4>
+    <h3> {{search}} is so
+    {% for ht in hashtags %}
+    	#{{ht}}
+    {% endfor %}
+    </h3>
+    <h3>{{search}} promotes
+    {% for rt in retweet %}
+    	{{rt}},
+    {% endfor %}
+    </h3>
+    <h3> {{search}} Most impactful photos on twitter </h3>
+    {% for photo in t_pic %}
+    <img src="{{photo}}" height="100" width="100" />
+    {% endfor %}
+    <h3> Here are some places you've been </h3>
+    <div id='map-wrapper'>
+      <div id='map-canvas' class='mapping'></div>
+    </div>
   {% else %}
-  <h1>Something went wrong!</h1>
+    <h1>Something went wrong!</h1>
   {% endif %}
+  <script type='text/javascript'>
+    window.markers = {{markers|safe}}
+  </script>
 {% endblock %}
-       

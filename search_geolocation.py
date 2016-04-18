@@ -3,7 +3,7 @@ from geolocation_client import GeolocationClient
 
 def main():
     client = GeolocationClient()
-    response = client.find_coordinates('Empire State Building')
+    response = client.find_coordinates('Northwestern University')
 
     print response
 

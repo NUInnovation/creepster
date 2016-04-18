@@ -11,7 +11,7 @@ class InstagramClient:
         self.user_media = None
 
 
-    def find_usernames(self, name):
+    def get_username(self, name):
         """Find an Instagram username given a name."""
         params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
@@ -20,7 +20,7 @@ class InstagramClient:
         for entry in data:
             usernames.append(entry['username'])
 
-        return usernames
+        return usernames[0]
 
 
     def get_user_profile(self, user_id):
