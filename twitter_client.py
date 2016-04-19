@@ -65,11 +65,15 @@ class TwitterClient:
 		retweet_map = {}
 		for tweet in results:
 			if tweet["text"].startswith('RT', 0, 2):
-				handle = tweet["retweeted_status"]["user"]["name"]
-				if not handle in retweet_map:
-					retweet_map[handle] = 1
-				else:
-					retweet_map[handle] = retweet_map[handle] + 1
+				try:
+					handle = tweet["retweeted_status"]["user"]["name"]
+					if not handle in retweet_map:
+						retweet_map[handle] = 1
+					else:
+						retweet_map[handle] = retweet_map[handle] + 1
+				except Exception:
+					continue
+				
 
 
 		sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)

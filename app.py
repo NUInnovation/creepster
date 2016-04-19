@@ -37,6 +37,8 @@ def search():
 	geolocation = GeolocationClient()
 	search_term = request.form['search']
 	username = insta.get_username(search_term)
+	insta_photos = insta.aggregate_photos(username)
+	photo.extend(insta_photos)
 	location_names = insta.get_location_names(username)
 	markers = []
 	for location in location_names:
