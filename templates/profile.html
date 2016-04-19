@@ -17,10 +17,14 @@
     {% for photo in t_pic %}
     <img src="{{photo}}" height="100" width="100" />
     {% endfor %}
-    <h3> Here are some places you've been </h3>
-    <div id='map-wrapper'>
-      <div id='map-canvas' class='mapping'></div>
-    </div>
+    {% if markers == '[]' %}
+      <h3> We couldn't find a public Instagram account for {{search}} </h3>
+    {% else %}
+      <h3> Here are some places you've been </h3>
+      <div id='map-wrapper'>
+        <div id='map-canvas' class='mapping'></div>
+      </div>
+    {% endif %}
   {% else %}
     <h1>Something went wrong!</h1>
   {% endif %}

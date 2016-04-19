@@ -22,6 +22,17 @@ class InstagramClient:
 
         return usernames[0]
 
+    def get_usernames(self, name):
+        """Find all Instagram usernames given a name."""
+        params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
+        response = requests.get(self.api_url + 'users/search?', params=params).json()
+        data = response['data']
+        usernames = []
+        for entry in data:
+            usernames.append(entry['username'])
+
+        return usernames
+
 
     def get_user_profile(self, user_id):
         """Get more information about a user given a user_id."""
@@ -49,6 +60,9 @@ class InstagramClient:
         if not self.user_media:
             self.get_user_media(username)
 
+        if len(self.user_media['items']) == 0:
+            return []
+
         # parse media and grab location names
         items = self.user_media['items']
         location_names = []
@@ -64,6 +78,9 @@ class InstagramClient:
     def aggregate_photos(self, username):
         if not self.user_media:
             response = self.get_user_media(username)
+
+        if len(self.user_media['items']) == 0:
+            return []
 
         photo_map = {}
         for post in response["items"]:
