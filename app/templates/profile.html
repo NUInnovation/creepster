@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-  {% if search %}
     <h1>{{search}} Profile</h1>
-    <h4>{{t_loc}} {{t_desc}}</h4>
-    <h3> {{search}} is so
-    {% for ht in hashtags %}
-    	#{{ht}}
-    {% endfor %}
-    </h3>
-    <h3>{{search}} promotes
-    {% for rt in retweet %}
-    	{{rt}},
-    {% endfor %}
-    </h3>
-    <h3> {{search}} Most impactful photos</h3>
-    {% for photo in t_pic %}
-    <img src="{{photo}}" height="200" width="200" />
-    {% endfor %}
+    {% if no_twitter %}
+      <h3>{{search}} does not have a Twitter account.</h3>
+    {% else %}
+
+      <h4>{{t_loc}} {{t_desc}}</h4>
+      <h3> {{search}} is so
+      {% for ht in hashtags %}
+      	#{{ht}}
+      {% endfor %}
+      </h3>
+      <h3>{{search}} promotes
+      {% for rt in retweet %}
+      	{{rt}},
+      {% endfor %}
+      </h3>
+    {% endif %}
+    {% if t_pic|length > 0 %}
+      <h3> {{search}} Most impactful photos</h3>
+      {% for photo in t_pic %}
+      <img src="{{photo}}" height="200" width="200" />
+      {% endfor %}
+    {% endif %}
     {% if media_missing %}
       <h3>
         We couldn't find a public Instagram account for {{search}}.
@@ -31,9 +37,6 @@
         <div id='map-canvas' class='mapping'></div>
       </div>
     {% endif %}
-  {% else %}
-    <h1>Something went wrong!</h1>
-  {% endif %}
   <script type='text/javascript'>
     window.markers = {{markers|safe}}
   </script>

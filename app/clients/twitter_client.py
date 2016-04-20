@@ -5,6 +5,7 @@
 from twitter import *
 # from config import consumer_key, consumer_secret, access_token, access_token_secret
 from config import twitter
+from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
 
 class TwitterClient:
 	def __init__(self):
@@ -13,6 +14,8 @@ class TwitterClient:
 
 	def search_username(self, query):
 		results = self.t.users.search(q = query)
+		if len(results) == 0:
+			raise NoTwitterAccountException('No twitter account found!')
 		user = results[0]
 		return user["screen_name"]
 
