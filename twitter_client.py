@@ -18,10 +18,12 @@ class TwitterClient:
 
 	def search_tweets_for_user(self, screen_name, count):
 		results = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
-
+		text = []
 		for tweet in results:
-			print '----'
-			print tweet["text"]
+			#print '----'
+			#print tweet["text"]
+			text.append(tweet["text"])
+		return text
 
 	def is_geo_enabled(self, screen_name):
 		results = self.t.users.search(q=screen_name, count=1)
