@@ -84,13 +84,13 @@ class InstagramClient:
 
     def aggregate_photos(self, username):
         if not self.user_media:
-            response = self.get_user_media(username)
+            self.get_user_media(username)
 
         if len(self.user_media['items']) == 0:
             raise MediaMissingException('No user media returned from API!')
 
         photo_map = {}
-        for post in response["items"]:
+        for post in self.user_media["items"]:
             photo_map[post["images"]["standard_resolution"]["url"]] = float(post["likes"]["count"]) + float(post["comments"]["count"])
         sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 

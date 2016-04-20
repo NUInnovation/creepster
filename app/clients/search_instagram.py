@@ -3,9 +3,10 @@ from instagram_client import InstagramClient
 
 def main():
     insta = InstagramClient()
-    username = insta.get_username('Jordan Ray')
-    media = insta.get_user_media(username)
+    usernames = insta.get_username('Melanie Klerer')
+    media = insta.get_user_media(usernames)
     print media
+    print insta.aggregate_photos(usernames)
 
 if __name__ == '__main__':
     main()

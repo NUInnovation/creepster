@@ -49,6 +49,8 @@ def search():
 			if coordinates:
 				current_marker.update(coordinates)
 				markers.append(current_marker)
+		insta_photos = insta.aggregate_photos(username)
+		photo.extend(insta_photos)
 	except MediaMissingException:
 		media_missing = True
 	except NoLocationsException:
