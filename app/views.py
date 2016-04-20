@@ -1,13 +1,14 @@
 # app.py
+from flask import render_template, request
 import json
 
-from flask import Flask, request, render_template
+from app import app
 
-from instagram_client import InstagramClient
-from geolocation_client import GeolocationClient
-from twitter_client import TwitterClient
-
-app = Flask(__name__, static_url_path='/static')
+from app.clients.instagram_client import InstagramClient
+from app.clients.geolocation_client import GeolocationClient
+from app.clients.twitter_client import TwitterClient
+from app.exceptions.media_missing_exception import MediaMissingException
+from app.exceptions.no_locations_exception import NoLocationsException
 
 @app.route('/hello')
 def hello():
@@ -37,14 +38,21 @@ def search():
 	geolocation = GeolocationClient()
 	search_term = request.form['search']
 	username = insta.get_username(search_term)
-	location_names = insta.get_location_names(username)
+	media_missing = False
+	no_locations = False
 	markers = []
-	for location in location_names:
-		current_marker = {'title': location}
-		coordinates = geolocation.find_coordinates(location)
-		if coordinates:
-			current_marker.update(coordinates)
-			markers.append(current_marker)
+	try:
+		location_names = insta.get_location_names(username)
+		for location in location_names:
+			current_marker = {'title': location}
+			coordinates = geolocation.find_coordinates(location)
+			if coordinates:
+				current_marker.update(coordinates)
+				markers.append(current_marker)
+	except MediaMissingException:
+		media_missing = True
+	except NoLocationsException:
+		no_locations = True
 
 	# render template with template variables
 	return render_template(
@@ -55,7 +63,9 @@ def search():
 		t_loc=twitter_loc,
 		t_desc=twitter_des,
 		t_pic=photo,
-		markers=json.dumps(markers)
+		markers=json.dumps(markers),
+		media_missing=media_missing,
+		no_locations=no_locations
 	)
 
 
@@ -64,5 +74,5 @@ def redirect():
 	return render_template('home.html')
 
 
-if __name__ == '__main__':
-	app.run(debug=True)
+# if __name__ == '__main__':
+# 	app.run(debug=True)

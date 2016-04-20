@@ -17,8 +17,14 @@
     {% for photo in t_pic %}
     <img src="{{photo}}" height="100" width="100" />
     {% endfor %}
-    {% if markers == '[]' %}
-      <h3> We couldn't find a public Instagram account for {{search}} </h3>
+    {% if media_missing %}
+      <h3>
+        We couldn't find a public Instagram account for {{search}}.
+      </h3>
+    {% elif no_locations %}
+      <h3>
+        {{search}} did not share any locations on Instagram.
+      </h3>
     {% else %}
       <h3> Here are some places you've been </h3>
       <div id='map-wrapper'>

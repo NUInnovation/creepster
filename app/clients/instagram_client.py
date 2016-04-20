@@ -1,5 +1,7 @@
 # instagram_client.py
 from config import instagram
+from app.exceptions.media_missing_exception import MediaMissingException
+from app.exceptions.no_locations_exception import NoLocationsException
 
 import requests
 
@@ -60,8 +62,9 @@ class InstagramClient:
         if not self.user_media:
             self.get_user_media(username)
 
+        # raise relevant exception if no media retrieved
         if len(self.user_media['items']) == 0:
-            return []
+            raise MediaMissingException('No user media returned from API!')
 
         # parse media and grab location names
         items = self.user_media['items']
@@ -72,6 +75,10 @@ class InstagramClient:
                 location_name = location['name']
                 location_names.append(location_name)
 
+        # raise relevant exception if no locations provided
+        if len(location_names) == 0:
+            raise NoLocationsException('No locations provided in user\'s posts!')
+
         return location_names
 
 
@@ -80,7 +87,7 @@ class InstagramClient:
             response = self.get_user_media(username)
 
         if len(self.user_media['items']) == 0:
-            return []
+            raise MediaMissingException('No user media returned from API!')
 
         photo_map = {}
         for post in response["items"]:
