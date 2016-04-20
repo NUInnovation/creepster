@@ -27,6 +27,6 @@ If you want to run Creepster on your computer, follow these steps:
 ```shell
 git clone https://github.com/NUInnovation/creepster.git
 pip install -r requirements.txt
-python app.py
+python run.py
 ```
 Open https://localhost:5000
