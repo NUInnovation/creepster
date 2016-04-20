@@ -9,6 +9,7 @@ from app.clients.geolocation_client import GeolocationClient
 from app.clients.twitter_client import TwitterClient
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
+from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
 
 @app.route('/hello')
 def hello():
@@ -26,12 +27,21 @@ def search():
 	# get twitter data
 	twttr = TwitterClient()
 	name = request.form['search']
-	screen_name = twttr.search_username(name)
-	twitter_loc = twttr.user_location(screen_name)
-	twitter_des = twttr.user_description(screen_name)
-	hashtags = twttr.aggregate_hashtags(screen_name, 3200)
-	retweet = twttr.aggregate_retweets(screen_name, 3200)
-	photo = twttr.aggregate_photos(screen_name, 1000)
+	no_twitter = False
+	twitter_loc = ''
+	twitter_des = ''
+	hashtags = []
+	retweet = []
+	photo = []
+	try:
+		screen_name = twttr.search_username(name)
+		twitter_loc = twttr.user_location(screen_name)
+		twitter_des = twttr.user_description(screen_name)
+		hashtags = twttr.aggregate_hashtags(screen_name, 3200)
+		retweet = twttr.aggregate_retweets(screen_name, 3200)
+		photo = twttr.aggregate_photos(screen_name, 1000)
+	except NoTwitterAccountException:
+		no_twitter = True
 
 	# get instagram data
 	insta = InstagramClient()
@@ -67,7 +77,8 @@ def search():
 		t_pic=photo,
 		markers=json.dumps(markers),
 		media_missing=media_missing,
-		no_locations=no_locations
+		no_locations=no_locations,
+		no_twitter=no_twitter
 	)
 
 
