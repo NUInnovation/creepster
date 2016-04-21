@@ -87,5 +87,9 @@ def redirect():
 	return render_template('home.html')
 
 
-# if __name__ == '__main__':
-# 	app.run(debug=True)
+@app.route('/autocomplete', methods=['POST'])
+def autocomplete():
+	query = request.form['query']
+	twitter = TwitterClient()
+	usernames = twitter.search_usernames(query)
+	return json.dumps(usernames)

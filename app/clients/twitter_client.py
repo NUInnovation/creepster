@@ -20,6 +20,13 @@ class TwitterClient:
 		return user["screen_name"]
 
 
+	def search_usernames(self, query):
+		"""Return all usernames with the given query."""
+		results = self.t.users.search(q=query)
+		usernames = [(user['name'], user['screen_name']) for user in results]
+		return usernames
+
+
 	def search_tweets_for_user(self, screen_name, count):
 		if not self.timeline:
 			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
@@ -86,7 +93,7 @@ class TwitterClient:
 						retweet_map[handle] = retweet_map[handle] + 1
 				except Exception:
 					continue
-				
+
 
 
 		sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
@@ -105,5 +112,3 @@ class TwitterClient:
 						photo_map[url["media_url"]] = float(tweet["favorite_count"]) + float(tweet["retweet_count"])
 		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 		return sort_map[:5]
-
-
