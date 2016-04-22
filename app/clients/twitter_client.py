@@ -22,7 +22,10 @@ class TwitterClient:
 
 	def search_tweets_for_user(self, screen_name, count):
 		if not self.timeline:
-			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
 
 		text = []
 		for tweet in self.timeline:
@@ -49,7 +52,10 @@ class TwitterClient:
 			return
 
 		if not self.timeline:
-			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
 
 		for tweet in self.timeline:
 			if tweet["place"] != None:
@@ -57,7 +63,10 @@ class TwitterClient:
 
 	def aggregate_hashtags(self, screen_name, count):
 		if not self.timeline:
-			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
 
 		hashtag_map = {}
 		for tweet in self.timeline:
@@ -73,7 +82,10 @@ class TwitterClient:
 
 	def aggregate_retweets(self, screen_name, count):
 		if not self.timeline:
-			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
 
 		retweet_map = {}
 		for tweet in self.timeline:
@@ -94,7 +106,10 @@ class TwitterClient:
 
 	def aggregate_photos(self, screen_name, count):
 		if not self.timeline:
-			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
 
 		photo_map = {}
 		for tweet in self.timeline:
