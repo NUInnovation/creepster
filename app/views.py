@@ -47,11 +47,12 @@ def search():
 	insta = InstagramClient()
 	geolocation = GeolocationClient()
 	search_term = request.form['search']
-	username = insta.get_username(search_term)
+	username = ''
 	media_missing = False
 	no_locations = False
 	markers = []
 	try:
+		username = insta.get_username(search_term)
 		location_names = insta.get_location_names(username)
 		for location in location_names:
 			current_marker = {'title': location}

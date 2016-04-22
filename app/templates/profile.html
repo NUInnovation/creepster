@@ -2,20 +2,25 @@
 {% block content %}
     <h1>{{search}} Profile</h1>
     {% if no_twitter %}
-      <h3>{{search}} does not have a Twitter account.</h3>
+      <h3>{{search}} does not have a Twitter acccount or has protected tweets.</h3>
     {% else %}
 
       <h4>{{t_loc}} {{t_desc}}</h4>
-      <h3> {{search}} is so
-      {% for ht in hashtags %}
-      	#{{ht}}
-      {% endfor %}
+      {% if hashtags|length > 0 %}
+        <h3> {{search}} is so
+        {% for ht in hashtags %}
+      	 #{{ht}}
+        {% endfor %}
+        </h3>
+      {% endif %}
+      {% if retweet|length > 0 %}
+        <h3>{{search}} promotes
+        {% for rt in retweet %}
+        	{{rt}},
+        {% endfor %}
       </h3>
-      <h3>{{search}} promotes
-      {% for rt in retweet %}
-      	{{rt}},
-      {% endfor %}
-      </h3>
+      {% endif %}
+      
     {% endif %}
     {% if t_pic|length > 0 %}
       <h3> {{search}} Most impactful photos</h3>
