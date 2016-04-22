@@ -21,7 +21,8 @@ class InstagramClient:
         usernames = []
         for entry in data:
             usernames.append(entry['username'])
-
+        if len(usernames) == 0:
+            raise MediaMissingException('No Account Found!')
         return usernames[0]
 
     def get_usernames(self, name):
