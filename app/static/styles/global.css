@@ -3,3 +3,12 @@
 h1 {
 	color: blue;
 }
+
+/* Autocomplete */
+.tt-suggestion {
+	background-color: #AEEEEE;
+}
+
+.tt-cursor {
+	background-color: #05B8CC;
+}
