@@ -3,7 +3,6 @@
 #!/usr/bin/python
 
 from twitter import *
-# from config import consumer_key, consumer_secret, access_token, access_token_secret
 from config import twitter
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
 
@@ -127,3 +126,15 @@ class TwitterClient:
 						photo_map[url["media_url"]] = float(tweet["favorite_count"]) + float(tweet["retweet_count"])
 		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 		return sort_map[:5]
+
+	def get_following(self, screen_name):
+		"""Returns user profiles for the most recent 100 friends
+		(people a given user follows)."""
+		friends = self.t.friends.list(screen_name=screen_name, count=100)
+		return friends
+
+
+	def get_followers(self, screen_name):
+		"""Returns user profiles for the most recent 100 followers."""
+		followers = self.t.followers.list(screen_name=screen_name, count=100)
+		return followers
