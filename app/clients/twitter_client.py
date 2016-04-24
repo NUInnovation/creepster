@@ -27,6 +27,12 @@ class TwitterClient:
 		return usernames
 
 
+	def get_user_profile(self, screen_name):
+		"""Returns a user profile given a screen_name."""
+		profile = self.t.users.lookup(screen_name=screen_name)[0]
+		return profile
+
+
 	def search_tweets_for_user(self, screen_name, count):
 		if not self.timeline:
 			try:
