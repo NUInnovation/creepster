@@ -11,6 +11,7 @@ class TwitterClient:
 		self.t = Twitter(auth = OAuth(twitter['access_token'], twitter['access_token_secret'], twitter['consumer_key'], twitter['consumer_secret']))
 		self.timeline = None
 
+
 	def search_username(self, query):
 		results = self.t.users.search(q = query)
 		if len(results) == 0:
@@ -40,17 +41,21 @@ class TwitterClient:
 			text.append(tweet["text"])
 		return text
 
+
 	def is_geo_enabled(self, screen_name):
 		results = self.t.users.search(q=screen_name, count=1)
 		return results[0]["geo_enabled"]
+
 
 	def user_location(self, screen_name):
 		results = self.t.users.search(q=screen_name, count=1)
 		return results[0]["location"]
 
+
 	def user_description(self, screen_name):
 		results = self.t.users.search(q=screen_name, count=1)
 		return results[0]["description"]
+
 
 	def search_geo_for_user(self, screen_name, count):
 		if is_geo_enabled(screen_name) == False:
@@ -66,6 +71,7 @@ class TwitterClient:
 		for tweet in self.timeline:
 			if tweet["place"] != None:
 				print tweet["place"]
+
 
 	def aggregate_hashtags(self, screen_name, count):
 		if not self.timeline:
@@ -85,6 +91,7 @@ class TwitterClient:
 
 		sort_hash = sorted(hashtag_map, key=hashtag_map.get, reverse=True)
 		return sort_hash[:4]
+
 
 	def aggregate_retweets(self, screen_name, count):
 		if not self.timeline:
@@ -110,6 +117,7 @@ class TwitterClient:
 		sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
 		return sort_tweet[:4]
 
+
 	def aggregate_photos(self, screen_name, count):
 		if not self.timeline:
 			try:
@@ -126,6 +134,7 @@ class TwitterClient:
 						photo_map[url["media_url"]] = float(tweet["favorite_count"]) + float(tweet["retweet_count"])
 		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 		return sort_map[:5]
+
 
 	def get_following(self, screen_name):
 		"""Returns user profiles for the most recent 100 friends
