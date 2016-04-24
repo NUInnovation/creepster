@@ -37,6 +37,14 @@ class InstagramClient:
         return usernames
 
 
+    def get_user(self, username):
+        """Get user profile given a username."""
+        params = {'q': username, 'access_token': instagram['access_token']}
+        response = requests.get(self.api_url + 'users/search?', params=params).json()
+        data = response['data']
+        return data[0]
+
+
     def get_user_profile(self, user_id):
         """Get more information about a user given a user_id."""
         if not self.user_profile:
@@ -84,6 +92,7 @@ class InstagramClient:
 
 
     def aggregate_photos(self, username):
+        """Aggregate all photos of a given user."""
         if not self.user_media:
             self.get_user_media(username)
 
@@ -96,3 +105,23 @@ class InstagramClient:
         sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
 
         return sort_map[:5]
+
+
+    def get_following(self, username):
+        """Returns user profiles for 100 friends of a given user."""
+        user = self.get_user(username)
+        user_id = user['id']
+        params = {'access_token': instagram['access_token'], 'count': 100}
+        url = self.api_url + 'users/' + user_id + '/follows?'
+        response = requests.get(url, params=params).json()
+        return response['data']
+
+
+    def get_followers(self, username):
+        """Returns user profiles for 100 followers of a given user."""
+        user = self.get_user(username)
+        user_id = user['id']
+        params = {'access_token': instagram['access_token'], 'count': 100}
+        url = self.api_url + 'users/' + user_id + '/followed-by?'
+        response = requests.get(url, params=params).json()
+        return response['data']

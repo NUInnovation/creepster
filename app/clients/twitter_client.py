@@ -140,10 +140,10 @@ class TwitterClient:
 		"""Returns user profiles for the most recent 100 friends
 		(people a given user follows)."""
 		friends = self.t.friends.list(screen_name=screen_name, count=100)
-		return friends
+		return friends['users']
 
 
 	def get_followers(self, screen_name):
 		"""Returns user profiles for the most recent 100 followers."""
 		followers = self.t.followers.list(screen_name=screen_name, count=100)
-		return followers
+		return followers['users']
