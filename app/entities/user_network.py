@@ -9,10 +9,6 @@ class UserNetwork:
     def __init__(self, twitter_username, insta_username):
         self.twitter_username = twitter_username
         self.instagram_username = insta_username
-        self.twitter_following = None
-        self.twitter_followers = None
-        self.instagram_following = None
-        self.instagram_followers = None
 
         # let's go!
         self.create_network()
