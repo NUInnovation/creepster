@@ -22,7 +22,7 @@ $('#search-box').typeahead({
     pending: '<em>Loading...</em>',
     suggestion: function(suggestion) {
       // format suggestions correctly: {{Name}} - {{Username}}
-      return '<div>' + suggestion[0] + '-' + suggestion[1] + '</div>';
+      return '<div>' + suggestion[0] + ' <b style="color:grey">@' + suggestion[1] + '</b></div>';
     }
   }
 });

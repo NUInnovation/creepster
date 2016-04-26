@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>creepster: find out what other people know about you </h1>
-
-	<form action="profile" method="post">
-	  <input id="search-box" type="text" name="search" autocomplete="off" data-provide='typeahead' placeholder="enter a name...">
-		<input type="submit" name="Submit">
-	</form>
+	<img src="{{ url_for('static', filename='logo.png') }}" class="head-logo"/>
+		<form action="profile" method="post">
+		  <input id="search-box" type="text" name="search" autocomplete="off" data-provide='typeahead' placeholder="enter a name...">
+		</form>
 {% endblock %}
