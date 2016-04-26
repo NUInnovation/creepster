@@ -39,7 +39,7 @@ class UserNetwork:
                 if t_following['name'].lower() == i_following['full_name'].lower():
                     count += 1
 
-        self.following_overlap = float(count/len(self.twitter_following)) % 100
+        self.following_overlap = count
 
 
     def calculate_follower_overlap(self):
@@ -51,7 +51,7 @@ class UserNetwork:
                 if t_follower['name'].lower() == i_follower['full_name'].lower():
                     count += 1
 
-        self.follower_overlap = float(count/len(self.twitter_followers)) % 100
+        self.follower_overlap = count
 
 
     def calculate_average_overlap(self):

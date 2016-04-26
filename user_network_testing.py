@@ -5,9 +5,10 @@ from app.services.user_network_service import UserNetworkService
 
 def main():
     # network_service = UserNetworkService('melanieklerer')
-    network = UserNetwork('nevilsgeorge', 'neviiil')
-    network.calculate_following_overlap()
-    network.calculate_follower_overlap()
+    network = UserNetwork('LenaBlietz', 'cata_lena_winemixer')
+
+    print network.following_overlap
+    print network.follower_overlap
 
 
 if __name__ == '__main__':
