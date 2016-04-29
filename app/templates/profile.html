@@ -1,11 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>{{search}}</h1>
+    <div class="jumbotop jumbotron">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-3">
+            {% if t_pic|length > 0 %}
+            <img class="img-circle" src="{{t_pic[0]}}" height="200" width="200" />
+            {% else %}
+             <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
+            {% endif %}
+          </div>
+          <div class="col-sm-9">
+            <h1>{{search}}</h1>
+            <h4>{{t_loc}}</h4>
+            <h4>{{t_desc}}</h4>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="content-pad">
+
     {% if no_twitter %}
       <h3>{{search}} does not have a Twitter acccount or has protected tweets.</h3>
     {% else %}
-
-      <h4>{{t_loc}} {{t_desc}}</h4>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <img class="pull-right" src="{{ url_for('static', filename='twitter.png') }}" width="40" height="35"/>
       {% if hashtags|length > 0 %}
         <h3> {{search}} is so
         {% for ht in hashtags %}
@@ -20,13 +40,18 @@
         {% endfor %}
       </h3>
       {% endif %}
-      
+      </div>
+    </div>
     {% endif %}
     {% if t_pic|length > 0 %}
-      <h3> {{search}} Most impactful photos</h3>
-      {% for photo in t_pic %}
-      <img src="{{photo}}" height="200" width="200" />
-      {% endfor %}
+    <div class="panel panel-success">
+      <div class="panel-heading">
+         <img class="pull-right" src="{{ url_for('static', filename='camera.png') }}" width="40" height="35"/>
+        {% for photo in t_pic %}
+        <img src="{{photo}}" height="200" width="200" class="img-padded img-rounded"/>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
     {% if media_missing %}
       <h3>
@@ -37,11 +62,11 @@
         {{search}} did not share any locations on Instagram.
       </h3>
     {% else %}
-      <h3> Here are some places you've been </h3>
       <div id='map-wrapper'>
         <div id='map-canvas' class='mapping'></div>
       </div>
     {% endif %}
+  </div>
   <script type='text/javascript'>
     window.markers = {{markers|safe}}
   </script>

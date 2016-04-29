@@ -95,3 +95,22 @@
      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
           box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
+
+.jumbotop {
+  margin-top: -20px !important;
+  background-color: white !important;
+  width: 100%;
+  position: fixed;
+}
+
+.content-pad {
+  padding-top: 310px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-padded {
+  margin-bottom: 5px;
+}
