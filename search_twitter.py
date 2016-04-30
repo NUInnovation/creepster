@@ -4,8 +4,10 @@ from app.clients.twitter_client import TwitterClient
 
 def main():
 	twitter = TwitterClient()
-	followers = twitter.get_followers('nevilsgeorge')
-	print followers
+	following = twitter.get_following('LenaBlietz')
+	followers = twitter.get_followers('LenaBlietz')
+	print len(following)
+	print len(followers)
 
 
 if __name__ == '__main__':

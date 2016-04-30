@@ -18,9 +18,7 @@ class InstagramClient:
         params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
         data = response['data']
-        usernames = []
-        for entry in data:
-            usernames.append(entry['username'])
+        usernames = [entry['username'] for entry in data]
         if len(usernames) == 0:
             raise MediaMissingException('No Account Found!')
         return usernames[0]
@@ -30,10 +28,9 @@ class InstagramClient:
         params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
         data = response['data']
-        usernames = []
-        for entry in data:
-            usernames.append(entry['username'])
-
+        usernames = [entry['username'] for entry in data]
+        if len(usernames) == 0:
+             raise MediaMissingException('No Account Found!')
         return usernames
 
 

@@ -10,6 +10,7 @@ from app.clients.twitter_client import TwitterClient
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
+from app.services.user_network_service import UserNetworkService
 
 @app.route('/hello')
 def hello():
@@ -28,6 +29,7 @@ def search():
 	twttr = TwitterClient()
 	name = request.form['search']
 	no_twitter = False
+	screen_name = ''
 	twitter_loc = ''
 	twitter_des = ''
 	hashtags = []
@@ -44,6 +46,7 @@ def search():
 		no_twitter = True
 
 	# get instagram data
+	user_network = UserNetworkService(screen_name)
 	insta = InstagramClient()
 	geolocation = GeolocationClient()
 	search_term = request.form['search']
@@ -52,7 +55,7 @@ def search():
 	no_locations = False
 	markers = []
 	try:
-		username = insta.get_username(search_term)
+		username = user_network.get_best_instagram_username()
 		location_names = insta.get_location_names(username)
 		for location in location_names:
 			current_marker = {'title': location}

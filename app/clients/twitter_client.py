@@ -27,6 +27,12 @@ class TwitterClient:
 		return usernames
 
 
+	def get_user_profile(self, screen_name):
+		"""Returns a user profile given a screen_name."""
+		profile = self.t.users.lookup(screen_name=screen_name)[0]
+		return profile
+
+
 	def search_tweets_for_user(self, screen_name, count):
 		if not self.timeline:
 			try:
@@ -139,11 +145,11 @@ class TwitterClient:
 	def get_following(self, screen_name):
 		"""Returns user profiles for the most recent 100 friends
 		(people a given user follows)."""
-		friends = self.t.friends.list(screen_name=screen_name, count=100)
+		friends = self.t.friends.list(screen_name=screen_name, count=200)
 		return friends['users']
 
 
 	def get_followers(self, screen_name):
 		"""Returns user profiles for the most recent 100 followers."""
-		followers = self.t.followers.list(screen_name=screen_name, count=100)
+		followers = self.t.followers.list(screen_name=screen_name, count=200)
 		return followers['users']
