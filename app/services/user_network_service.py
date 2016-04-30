@@ -45,3 +45,10 @@ class UserNetworkService:
         Twitter and Instagram."""
         max_network = max(self.user_networks, key=lambda x:x.average_overlap)
         return max_network.instagram_username
+
+
+    def get_best_instagram_username(self):
+        """Finds best matching Instagram username."""
+        self.create_networks()
+        best_match = self.find_match()
+        return best_match
