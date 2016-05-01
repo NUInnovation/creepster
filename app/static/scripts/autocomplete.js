@@ -1,7 +1,7 @@
 // autocomplete.js
 
 $('#search-box').typeahead({
-  minLength: 3,
+  minLength: 7,
   highlight: true
 },
 {
@@ -26,9 +26,4 @@ $('#search-box').typeahead({
       return '<div>' + suggestion[0] + ' <b style="color:grey">@' + suggestion[1] + '</b></div>';
     }
   }
-});
-
-$('#search-box').change(function(event) {
-  event.preventDefault();
-  $('#search-box').typeahead('open');
 });
