@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-	<img src="{{ url_for('static', filename='logo.png') }}" class="head-logo"/>
+	<div id="home-content">
+		<img src="{{ url_for('static', filename='logo.png') }}" class="head-logo"/>
 		<form action="profile" method="post">
 		  <input id="search-box" type="text" name="search" autocomplete="off" data-provide='typeahead' placeholder="enter a name...">
 		</form>
+	</div>
+
+	<!-- Loader -->
+	<div id="loader">
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
 {% endblock %}
