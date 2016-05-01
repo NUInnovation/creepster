@@ -111,6 +111,8 @@ class InstagramClient:
         params = {'access_token': instagram['access_token'], 'count': 100}
         url = self.api_url + 'users/' + user_id + '/follows?'
         response = requests.get(url, params=params).json()
+        if response['meta']['code'] != 200:
+            raise MediaMissingException('Unable to access account!')
         return response['data']
 
 
@@ -121,4 +123,6 @@ class InstagramClient:
         params = {'access_token': instagram['access_token'], 'count': 100}
         url = self.api_url + 'users/' + user_id + '/followed-by?'
         response = requests.get(url, params=params).json()
+        if response['meta']['code'] != 200:
+            raise MediaMissingException('Unable to access account!')
         return response['data']

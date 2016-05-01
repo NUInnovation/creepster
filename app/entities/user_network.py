@@ -1,6 +1,7 @@
 # user_network.py
 from app.clients.instagram_client import InstagramClient
 from app.clients.twitter_client import TwitterClient
+from app.exceptions.media_missing_exception import MediaMissingException
 
 class UserNetwork:
 
@@ -26,8 +27,12 @@ class UserNetwork:
 
         # get Instagram network
         insta = InstagramClient()
-        self.instagram_following = insta.get_following(self.instagram_username)
-        self.instagram_followers = insta.get_followers(self.instagram_username)
+        try:
+            self.instagram_following = insta.get_following(self.instagram_username)
+            self.instagram_followers = insta.get_followers(self.instagram_username)
+        except MediaMissingException:
+            self.instagram_following = []
+            self.instagram_followers = []
 
 
     def calculate_following_overlap(self):

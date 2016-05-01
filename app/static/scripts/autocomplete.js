@@ -9,12 +9,13 @@ $('#search-box').typeahead({
   source: function(query, syncResults, asyncResults) {
     $.post('/autocomplete', {query: query}, function(data) {
       var usernameList = JSON.parse(data);
+      // pass results into asyncResults callback
       asyncResults(usernameList);
     });
   },
   display: function(suggestion) {
-    // set input box to Twitter username when suggestion selected
-    return suggestion[1];
+    // set input box to full name when suggestion selected
+    return suggestion[0];
   },
   limit: 10,
   templates: {
