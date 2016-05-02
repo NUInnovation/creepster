@@ -22,13 +22,15 @@ Creepster is an simple tool that takes a person's name and searches various soci
 
 ## How to run locally
 If you want to run Creepster on your computer, follow these steps:
-* Clone the repo and install the dependencies (recommended: use a virtualenv)
+* Clone the repo and install the dependencies (recommended: using a virtualenv)
 ```shell
 git clone https://github.com/NUInnovation/creepster.git
 pip install -r requirements.txt
 ```
 
-* Create a file named config.json in the root directory using the config.example.json template and populate it with your secret keys.
+* Create a file named config.json in the root directory using the config.example.json template and populate it with your secret keys
+
+* Run the app
 ```shell
 python run.py
 ```
