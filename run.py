@@ -19,4 +19,5 @@ def set_environment_vars():
 
 from app import app
 set_environment_vars()
-app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
