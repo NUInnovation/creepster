@@ -1,8 +1,5 @@
 #!/usr/bin/python
 
-#from twitter import *
-# from config import consumer_key, consumer_secret, access_token, access_token_secret
-#from config import twitter
 from twitter_client import TwitterClient
 
 def main():
