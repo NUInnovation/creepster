@@ -2,6 +2,8 @@
 {% block content %}
 	<div id="home-content">
 		<img src="{{ url_for('static', filename='logo.png') }}" class="head-logo"/>
+		<p class="centered-text">Ever wondered how you appear online to others? Or how public someone’s information is on social media? Just do the creep.</p>
+		<form action="profile" method="post">
 		<form action="profile" method="post">
 		  <input id="search-box" type="text" name="search" autocomplete="off" data-provide='typeahead' placeholder="enter a name...">
 		</form>
