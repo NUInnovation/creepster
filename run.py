@@ -6,7 +6,7 @@ import sys
 
 def set_environment_vars():
     """Sets environment variables from a config.json file in the root directory.
-    If the file is not found, an error message is printed."""
+    If the file is not found, a warning message is printed."""
     try:
         config_file = open('config.json', 'r')
         config_json = json.load(config_file)
