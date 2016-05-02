@@ -1,6 +1,6 @@
 # 411_client.py
+import os
 
-from config import fouroneone
 import requests
 
 class FourOneOneClient:
@@ -11,7 +11,7 @@ class FourOneOneClient:
 	# LIMIT API CALLS AS MUCH AS PHYSICALLY POSSIBLE
 	def search(self, name):
 		url = self.url+name.replace(" ", "+")
-		response = requests.get(url+"&api_key="+fouroneone['api_key']).json()
+		response = requests.get(url+"&api_key=" + os.getenv('FOURONEONE_API_KEY')).json()
 		self.data = response['results'][0]
 
 	def get_addresses(self, name):
@@ -29,8 +29,3 @@ class FourOneOneClient:
 		for loc in self.data['locations']:
 			lat.append(loc['lat_long'])
 		return lat
-
-
-
-
-

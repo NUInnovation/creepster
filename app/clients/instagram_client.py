@@ -1,5 +1,6 @@
 # instagram_client.py
-from config import instagram
+import os
+
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
 
@@ -15,7 +16,7 @@ class InstagramClient:
 
     def get_username(self, name):
         """Find an Instagram username given a name."""
-        params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
+        params = {'count': 50, 'q': name, 'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
         data = response['data']
         usernames = [entry['username'] for entry in data]
@@ -25,7 +26,7 @@ class InstagramClient:
 
     def get_usernames(self, name):
         """Find all Instagram usernames given a name."""
-        params = {'count': 50, 'q': name, 'access_token': instagram['access_token']}
+        params = {'count': 50, 'q': name, 'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
         data = response['data']
         usernames = [entry['username'] for entry in data]
@@ -36,7 +37,7 @@ class InstagramClient:
 
     def get_user(self, username):
         """Get user profile given a username."""
-        params = {'q': username, 'access_token': instagram['access_token']}
+        params = {'q': username, 'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
         response = requests.get(self.api_url + 'users/search?', params=params).json()
         data = response['data']
         return data[0]
@@ -46,7 +47,7 @@ class InstagramClient:
         """Get more information about a user given a user_id."""
         if not self.user_profile:
             url = self.api_url + 'users/' + user_id + '/?'
-            params = {'access_token': instagram['access_token']}
+            params = {'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
             response = requests.get(url + 'users/' + user_id, params=params)
             self.user_profile = response.json()
 
@@ -108,7 +109,7 @@ class InstagramClient:
         """Returns user profiles for 100 friends of a given user."""
         user = self.get_user(username)
         user_id = user['id']
-        params = {'access_token': instagram['access_token'], 'count': 100}
+        params = {'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN'), 'count': 100}
         url = self.api_url + 'users/' + user_id + '/follows?'
         response = requests.get(url, params=params).json()
         if response['meta']['code'] != 200:
@@ -120,7 +121,7 @@ class InstagramClient:
         """Returns user profiles for 100 followers of a given user."""
         user = self.get_user(username)
         user_id = user['id']
-        params = {'access_token': instagram['access_token'], 'count': 100}
+        params = {'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN'), 'count': 100}
         url = self.api_url + 'users/' + user_id + '/followed-by?'
         response = requests.get(url, params=params).json()
         if response['meta']['code'] != 200:

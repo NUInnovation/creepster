@@ -1,14 +1,14 @@
 # twitter_client.py
 
 #!/usr/bin/python
+import os
 
 from twitter import *
-from config import twitter
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
 
 class TwitterClient:
 	def __init__(self):
-		self.t = Twitter(auth = OAuth(twitter['access_token'], twitter['access_token_secret'], twitter['consumer_key'], twitter['consumer_secret']))
+		self.t = Twitter(auth=OAuth(os.getenv('TWITTER_ACCESS_TOKEN'), os.getenv('TWITTER_ACCESS_TOKEN_SECRET'), os.getenv('TWITTER_CONSUMER_KEY'), os.getenv('TWITTER_CONSUMER_SECRET')))
 		self.timeline = None
 
 

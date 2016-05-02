@@ -1,6 +1,4 @@
 # geolocation_client.py
-from config import google
-
 import requests
 
 class GeolocationClient:
