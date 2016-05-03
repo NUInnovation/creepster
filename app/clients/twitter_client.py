@@ -3,12 +3,13 @@
 #!/usr/bin/python
 import os
 
-from twitter import *
+# from twitter import *
+import twitter
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
 
 class TwitterClient:
 	def __init__(self):
-		self.t = Twitter(auth=OAuth(os.getenv('TWITTER_ACCESS_TOKEN'), os.getenv('TWITTER_ACCESS_TOKEN_SECRET'), os.getenv('TWITTER_CONSUMER_KEY'), os.getenv('TWITTER_CONSUMER_SECRET')))
+		self.t = twitter.api.Twitter(auth=twitter.OAuth(os.getenv('TWITTER_ACCESS_TOKEN'), os.getenv('TWITTER_ACCESS_TOKEN_SECRET'), os.getenv('TWITTER_CONSUMER_KEY'), os.getenv('TWITTER_CONSUMER_SECRET')))
 		self.timeline = None
 
 
@@ -42,8 +43,6 @@ class TwitterClient:
 
 		text = []
 		for tweet in self.timeline:
-			#print '----'
-			#print tweet["text"]
 			text.append(tweet["text"])
 		return text
 
@@ -145,11 +144,21 @@ class TwitterClient:
 	def get_following(self, screen_name):
 		"""Returns user profiles for the most recent 100 friends
 		(people a given user follows)."""
-		friends = self.t.friends.list(screen_name=screen_name, count=200)
+		try:
+			friends = self.t.friends.list(screen_name=screen_name, count=200)
+		except twitter.api.TwitterHTTPError as e:
+			print 'HTTP error occurred!'
+			return []
+
 		return friends['users']
 
 
 	def get_followers(self, screen_name):
 		"""Returns user profiles for the most recent 100 followers."""
-		followers = self.t.followers.list(screen_name=screen_name, count=200)
+		try:
+			followers = self.t.followers.list(screen_name=screen_name, count=200)
+		except twitter.api.TwitterHTTPError as e:
+			print 'HTTP error occurred!'
+			return []
+
 		return followers['users']
