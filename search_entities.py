@@ -11,10 +11,12 @@ def main():
     ic = InstagramClient()
     sn_twitter = tc.search_username(user_name)
     sn_instagram = ic.get_username(user_name)
-    print "-----------Instagram Entities --------------"
-    print erc.get_entities_from_instagram(sn_instagram)
-    print "-----------Twitter Entities --------------"
-    print erc.get_entities_from_tweets(sn_twitter,50)
+    # print "-----------Instagram Entities --------------"
+    # print erc.get_entities_from_instagram(sn_instagram)
+    # print "-----------Twitter Entities --------------"
+    # print erc.get_entities_from_tweets(sn_twitter,50)
+    print "-----------Musicians --------------"
+    print erc.get_musicians(sn_twitter, sn_instagram)
 
 if __name__ == '__main__':
     main()
