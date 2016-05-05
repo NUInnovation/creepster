@@ -127,3 +127,13 @@ class InstagramClient:
         if response['meta']['code'] != 200:
             raise MediaMissingException('Unable to access account!')
         return response['data']
+
+    def get_user_profile_picture(self, username):
+        """Returns profile picture"""
+        if not self.user_media:
+            self.get_user_media(username)
+
+        if len(self.user_media['items']) == 0:
+            raise MediaMissingException('No user media returned from API!')
+
+        return self.user_media["items"][0]["user"]["profile_picture"]

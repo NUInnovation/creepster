@@ -35,6 +35,7 @@ def search():
 	hashtags = []
 	retweet = []
 	photo = []
+	profile =[]
 	try:
 		screen_name = twttr.search_username(name)
 		twitter_loc = twttr.user_location(screen_name)
@@ -42,6 +43,8 @@ def search():
 		hashtags = twttr.aggregate_hashtags(screen_name, 3200)
 		retweet = twttr.aggregate_retweets(screen_name, 3200)
 		photo = twttr.aggregate_photos(screen_name, 1000)
+		p_url = twttr.get_user_profile(screen_name)["profile_image_url_https"]
+		profile =  [] if "default_profile_images" in p_url else p_url
 	except NoTwitterAccountException:
 		no_twitter = True
 
@@ -65,6 +68,8 @@ def search():
 				markers.append(current_marker)
 		insta_photos = insta.aggregate_photos(username)
 		photo.extend(insta_photos)
+		if not profile:
+			profile = insta.get_user_profile_picture(username)
 	except MediaMissingException:
 		media_missing = True
 	except NoLocationsException:
@@ -82,7 +87,8 @@ def search():
 		markers=json.dumps(markers),
 		media_missing=media_missing,
 		no_locations=no_locations,
-		no_twitter=no_twitter
+		no_twitter=no_twitter,
+		profile=profile
 	)
 
 
