@@ -36,6 +36,7 @@ def search():
 	retweet = []
 	photo = []
 	profile =[]
+	links = []
 	try:
 		screen_name = twttr.search_username(name)
 		twitter_loc = twttr.user_location(screen_name)
@@ -45,6 +46,7 @@ def search():
 		photo = twttr.aggregate_photos(screen_name, 1000)
 		p_url = twttr.get_user_profile(screen_name)["profile_image_url_https"]
 		profile =  [] if "default_profile_images" in p_url else p_url
+		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
 	except NoTwitterAccountException:
 		no_twitter = True
 
@@ -88,7 +90,8 @@ def search():
 		media_missing=media_missing,
 		no_locations=no_locations,
 		no_twitter=no_twitter,
-		profile=profile
+		profile=profile,
+		links=links
 	)
 
 

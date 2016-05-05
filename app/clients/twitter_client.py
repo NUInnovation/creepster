@@ -153,3 +153,21 @@ class TwitterClient:
 		"""Returns user profiles for the most recent 100 followers."""
 		followers = self.t.followers.list(screen_name=screen_name, count=200)
 		return followers['users']
+
+	def search_links(self, screen_name, querys, count):
+		"""Searches links in tweets via query"""
+		if not self.timeline:
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
+		links = []
+		for tweet in self.timeline:
+			if "urls" in tweet["entities"]:
+				for urls in tweet["entities"]["urls"]:
+					if any(query in urls["expanded_url"] for query in querys):
+						links.append(urls["expanded_url"])
+		return links
+
+
+
