@@ -4,8 +4,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-3">
-            {% if t_pic|length > 0 %}
-            <img class="img-circle" src="{{t_pic[0]}}" height="200" width="200" />
+            {% if profile %}
+            <img class="img-circle" src="{{profile}}" height="200" width="200" />
             {% else %}
              <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
             {% endif %}
