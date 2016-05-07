@@ -137,3 +137,10 @@ class InstagramClient:
             raise MediaMissingException('No user media returned from API!')
 
         return self.user_media["items"][0]["user"]["profile_picture"]
+
+    def get_instagram_stats(self, username):
+        """Returns followers/following, number of posts"""
+        user = self.get_user(username)
+        user_info = self.get_user_profile(user["id"])
+        return user_info["data"]["counts"]
+

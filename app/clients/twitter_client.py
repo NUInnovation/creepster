@@ -169,5 +169,17 @@ class TwitterClient:
 						links.append(urls["expanded_url"])
 		return links
 
+	def get_twitter_stats(self, screen_name):
+		"""Compiles followers, number of tweets and following"""
+		if not self.timeline:
+			try:
+				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=1000)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
+		return {
+		'followers': self.timeline[0]["user"]["followers_count"], 
+		'tweets': self.timeline[0]["user"]["statuses_count"],
+		'following': self.timeline[0]["user"]["friends_count"]}
+
 
 
