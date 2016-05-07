@@ -37,6 +37,7 @@ def search():
 	photo = []
 	profile =[]
 	links = []
+	t_stats = {}
 	try:
 		screen_name = twttr.search_username(name)
 		twitter_loc = twttr.user_location(screen_name)
@@ -47,6 +48,8 @@ def search():
 		p_url = twttr.get_user_profile(screen_name)["profile_image_url_https"]
 		profile =  [] if "default_profile_images" in p_url else p_url
 		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
+		t_stats = twttr.get_twitter_stats(screen_name)
+		print 
 	except NoTwitterAccountException:
 		no_twitter = True
 
@@ -59,6 +62,7 @@ def search():
 	media_missing = False
 	no_locations = False
 	markers = []
+	i_stats = {}
 	try:
 		username = user_network.get_best_instagram_username()
 		location_names = insta.get_location_names(username)
@@ -72,6 +76,7 @@ def search():
 		photo.extend(insta_photos)
 		if not profile:
 			profile = insta.get_user_profile_picture(username)
+		i_stats = insta.get_instagram_stats(username)
 	except MediaMissingException:
 		media_missing = True
 	except NoLocationsException:
@@ -91,7 +96,9 @@ def search():
 		no_locations=no_locations,
 		no_twitter=no_twitter,
 		profile=profile,
-		links=links
+		links=links,
+		t_stats=t_stats,
+		i_stats=i_stats
 	)
 
 

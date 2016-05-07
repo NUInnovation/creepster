@@ -40,9 +40,23 @@
         {% endfor %}
       </h3>
       {% endif %}
+      <h3>Followers: {{t_stats["followers"]}} Following: {{t_stats["following"]}} Tweets: {{t_stats["tweets"]}}</h3>
       </div>
     </div>
     {% endif %}
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <img class="pull-right" src="{{ url_for('static', filename='instagram.png') }}" width="40" height="35"/>
+        <h3>Followers: {{i_stats["followed_by"]}} Following: {{i_stats["follows"]}} Posts: {{i_stats["media"]}}</h3>
+      </div>
+    </div>
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        {% for link in links %}
+        <a href="{{link}}">{{link}}</a>
+        {% endfor %}
+      </div>
+    </div>
     {% if t_pic|length > 0 %}
     <div class="panel panel-success">
       <div class="panel-heading">
