@@ -1,6 +1,7 @@
 # twitter_client.py
 
 #!/usr/bin/python
+import json
 import os
 
 # from twitter import *
@@ -11,6 +12,19 @@ class TwitterClient:
 	def __init__(self):
 		self.t = twitter.api.Twitter(auth=twitter.OAuth(os.getenv('TWITTER_ACCESS_TOKEN'), os.getenv('TWITTER_ACCESS_TOKEN_SECRET'), os.getenv('TWITTER_CONSUMER_KEY'), os.getenv('TWITTER_CONSUMER_SECRET')))
 		self.timeline = None
+
+	def download_timeline(self, screen_name, count):
+		"""Download a user timeline and cache it locally (for now)."""
+		filename = 'app/cache/' + screen_name + '.txt'
+		try:
+			with open(filename, 'r') as cache_file:
+				self.timeline = json.load(cache_file)
+		except IOError:
+			self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+			with open(filename, 'w') as cache_file:
+				json.dump(self.timeline, cache_file)
+
+		return self.timeline
 
 
 	def search_username(self, query):
@@ -37,7 +51,7 @@ class TwitterClient:
 	def search_tweets_for_user(self, screen_name, count):
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
@@ -69,7 +83,7 @@ class TwitterClient:
 
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
@@ -81,7 +95,7 @@ class TwitterClient:
 	def aggregate_hashtags(self, screen_name, count):
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
@@ -101,7 +115,7 @@ class TwitterClient:
 	def aggregate_retweets(self, screen_name, count):
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
@@ -126,7 +140,7 @@ class TwitterClient:
 	def aggregate_photos(self, screen_name, count):
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
@@ -167,7 +181,7 @@ class TwitterClient:
 		"""Searches links in tweets via query"""
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=count)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 		links = []
@@ -182,13 +196,10 @@ class TwitterClient:
 		"""Compiles followers, number of tweets and following"""
 		if not self.timeline:
 			try:
-				self.timeline = self.t.statuses.user_timeline(screen_name=screen_name, count=1000)
+				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 		return {
-		'followers': self.timeline[0]["user"]["followers_count"], 
+		'followers': self.timeline[0]["user"]["followers_count"],
 		'tweets': self.timeline[0]["user"]["statuses_count"],
 		'following': self.timeline[0]["user"]["friends_count"]}
-
-
-
