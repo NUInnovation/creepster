@@ -131,3 +131,7 @@
 .large-text {
   font-size: x-large;
 }
+
+.grid-item {
+  width: 200px;
+}

@@ -92,18 +92,18 @@
 
     <!-- Start second row -->
     {% if t_pic|length > 0 %}
-    <div class="row">
+    <div class="row photo-grid">
 
-      <!-- Start twitter image cards -->
-      {% for photo in t_pic %}
-      <div class="col s6 m4 l3">
-        <div class="card">
-          <div class="card-image">
-            <img src="{{photo}}"/>
+      <div class="col s12 m12 l12">
+        <!-- Start twitter image cards -->
+        {% for photo in t_pic %}
+          <div class="card grid-item">
+            <div class="card-image">
+              <img src="{{photo}}"/>
+            </div>
           </div>
-        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
 
     </div>
     {% endif %}
