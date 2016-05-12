@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+  <!-- Start content container -->
   <div class="container">
+
+    <!-- First row -->
     <div class="row">
+
+      <!-- Start Profile card -->
       <div class="col s12 m6 l6">
         {% if profile %}
         <div class="card">
@@ -18,73 +23,147 @@
          <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
         {% endif %}
       </div>
-      </div>
-    </div>
+      <!-- End Profile card -->
 
-    <div class="content-pad">
-    {% if no_twitter %}
-      <h3>{{search}} does not have a Twitter acccount or has protected tweets.</h3>
-    {% else %}
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <img class="pull-right" src="{{ url_for('static', filename='twitter.png') }}" width="40" height="35"/>
-      {% if hashtags|length > 0 %}
-        <h3> {{search}} often retweets:
-          {% for ht in hashtags %}
-      	 #{{ht}}
-        {% endfor %}
-        </h3>
+      <!-- Start Twitter info card -->
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content">
+            {% if no_twitter %}
+              <h3> {{search}} does not have a Twitter account or has protected tweeets </h3>
+            {% else %}
+              {% if hashtags|length > 0 %}
+                <div class="card-p">
+                  <p class="large-text">
+                    {{search}} often retweets:
+                    {% for ht in hashtags %}
+                      #{{ht}},
+                    {% endfor %}
+                  </p>
+                </div>
+              {% endif %}
+
+              {% if retweet|length > 0 %}
+                <div class="card-p">
+                  <p class="large-text">
+                    {{search}} promotes:
+                    {% for rt in retweet %}
+                      {{rt}},
+                    {% endfor %}
+                  </p>
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- End Twitter info card -->
+
+      <!-- Start social media stats card -->
+      {% if not no_twitter %}
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-p">
+              <h4> Twitter </h4>
+              <p class="large-text">
+                Followers: {{t_stats["followers"]}}
+                Following: {{t_stats["following"]}}
+                Tweets: {{t_stats["tweets"]}}
+              </p>
+            </div>
+            <div class="card-p">
+              <h4> Instagram </h4>
+              <p class="large-text">
+                Followers: {{i_stats["followed_by"]}}
+                Following: {{i_stats["follows"]}}
+                Posts: {{t_stats["media"]}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       {% endif %}
-      {% if retweet|length > 0 %}
-        <h3>{{search}} promotes:
-        {% for rt in retweet %}
-        	{{rt}},
-        {% endfor %}
-      </h3>
-      {% endif %}
-      <h3>Followers: {{t_stats["followers"]}} Following: {{t_stats["following"]}} Tweets: {{t_stats["tweets"]}}</h3>
-      </div>
+      <!-- End social media stats card -->
+
     </div>
-    {% endif %}
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <img class="pull-right" src="{{ url_for('static', filename='instagram.png') }}" width="40" height="35"/>
-        <h3>Followers: {{i_stats["followed_by"]}} Following: {{i_stats["follows"]}} Posts: {{i_stats["media"]}}</h3>
-      </div>
-    </div>
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        {% for link in links %}
-        <a href="{{link}}">{{link}}</a>
-        {% endfor %}
-      </div>
-    </div>
+    <!-- End first row -->
+
+
+    <!-- Start second row -->
     {% if t_pic|length > 0 %}
-    <div class="panel panel-success">
-      <div class="panel-heading">
-         <img class="pull-right" src="{{ url_for('static', filename='camera.png') }}" width="40" height="35"/>
-        {% for photo in t_pic %}
-        <img src="{{photo}}" height="200" width="200" class="img-padded img-rounded"/>
-        {% endfor %}
+    <div class="row">
+
+      <!-- Start twitter image cards -->
+      {% for photo in t_pic %}
+      <div class="col s6 m4 l3">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{photo}}"/>
+          </div>
+        </div>
       </div>
+      {% endfor %}
+
     </div>
     {% endif %}
-    {% if media_missing %}
-      <h3>
-        We couldn't find a public Instagram account for {{search}}.
-      </h3>
-    {% elif no_locations %}
-      <h3>
-        {{search}} did not share any locations on Instagram.
-      </h3>
-    {% else %}
-      <div id='map-wrapper'>
-        <div id='map-canvas' class='mapping'></div>
+    <!-- End second row -->
+
+
+    <!-- Start third row -->
+    <div class="row">
+
+      <!-- Start map card -->
+      <div class="col s12 m12 l12">
+        <div class="card">
+          <div class="card-content">
+        {% if media_missing %}
+          <p class="large-text">
+            We couldn't find a public Instagram account for {{search}}.
+          </p>
+        {% elif no_locations %}
+          <p class="large-text">
+            {{search}} did not share any locations on Instagram.
+          </p>
+        {% else %}
+          <div id="map-wrapper">
+            <div id="map-canvas" class="mapping"></div>
+          </div>
+        {% endif %}
+          </div>
+        </div>
       </div>
-    {% endif %}
+      <!-- End map card -->
+
     </div>
+    <!-- End third row -->
+
+
+    <!-- Start fourth row -->
+    {% if links|length > 0 %}
+    <div class="row">
+
+      <!-- Start links card -->
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content">
+            {% for link in links %}
+              <a href="{{link}}"> {{link}} </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- End links card -->
+
+    </div>
+    {% endif %}
+    <!-- End fourth row -->
+
+
     <script type='text/javascript'>
       window.markers = {{markers|safe}}
     </script>
+
   </div>
+  <!-- End content container -->
 {% endblock %}

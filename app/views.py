@@ -95,7 +95,7 @@ def search():
 		no_locations=no_locations,
 		no_twitter=no_twitter,
 		profile=profile,
-		links=links,
+		links=list(set(links)),
 		t_stats=t_stats,
 		i_stats=i_stats
 	)
