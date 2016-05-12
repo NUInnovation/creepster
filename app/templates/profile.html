@@ -117,19 +117,22 @@
       <div class="col s12 m12 l12">
         <div class="card">
           <div class="card-content">
-        {% if media_missing %}
-          <p class="large-text">
-            We couldn't find a public Instagram account for {{search}}.
-          </p>
-        {% elif no_locations %}
-          <p class="large-text">
-            {{search}} did not share any locations on Instagram.
-          </p>
-        {% else %}
-          <div id="map-wrapper">
-            <div id="map-canvas" class="mapping"></div>
+          {% if media_missing %}
+            <p class="large-text">
+              We couldn't find a public Instagram account for {{search}}.
+            </p>
+          {% elif no_locations %}
+            <p class="large-text">
+              {{search}} did not share any locations on Instagram.
+            </p>
+          {% else %}
+            <div id="map-wrapper">
+              <div id="map-canvas" class="mapping"></div>
+            </div>
+          {% endif %}
+          <div class="card-action">
+            <p class="large-text"> Places {{search}} has been </p>
           </div>
-        {% endif %}
           </div>
         </div>
       </div>

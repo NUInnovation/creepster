@@ -135,3 +135,7 @@
 .grid-item {
   width: 200px;
 }
+
+#map-wrapper {
+  margin-bottom: 0px !important;
+}
