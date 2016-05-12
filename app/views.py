@@ -49,7 +49,6 @@ def search():
 		profile =  [] if "default_profile_images" in p_url else p_url
 		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
 		t_stats = twttr.get_twitter_stats(screen_name)
-		print 
 	except NoTwitterAccountException:
 		no_twitter = True
 

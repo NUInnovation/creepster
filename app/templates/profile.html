@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="jumbotop jumbotron">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-3">
-            {% if profile %}
-            <img class="img-circle" src="{{profile}}" height="200" width="200" />
-            {% else %}
-             <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
-            {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 l6">
+        {% if profile %}
+        <div class="card">
+          <div class="card-image">
+            <img src="{{profile}}">
+            <span class="card-title"> {{search}} </span>
           </div>
-          <div class="col-sm-9">
-            <h1>{{search}}</h1>
-            <h4>{{t_loc}}</h4>
-            <h4>{{t_desc}}</h4>
+          <div class="card-content">
+            <p>{{t_loc}}</p>
+            <p>{{t_desc}}</p>
           </div>
+        </div>
+        {% else %}
+         <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
+        {% endif %}
       </div>
       </div>
     </div>
-    <div class="content-pad">
 
+    <div class="content-pad">
     {% if no_twitter %}
       <h3>{{search}} does not have a Twitter acccount or has protected tweets.</h3>
     {% else %}
@@ -27,14 +29,14 @@
       <div class="panel-heading">
         <img class="pull-right" src="{{ url_for('static', filename='twitter.png') }}" width="40" height="35"/>
       {% if hashtags|length > 0 %}
-        <h3> {{search}} is so
-        {% for ht in hashtags %}
+        <h3> {{search}} often retweets:
+          {% for ht in hashtags %}
       	 #{{ht}}
         {% endfor %}
         </h3>
       {% endif %}
       {% if retweet|length > 0 %}
-        <h3>{{search}} promotes
+        <h3>{{search}} promotes:
         {% for rt in retweet %}
         	{{rt}},
         {% endfor %}
@@ -80,8 +82,9 @@
         <div id='map-canvas' class='mapping'></div>
       </div>
     {% endif %}
+    </div>
+    <script type='text/javascript'>
+      window.markers = {{markers|safe}}
+    </script>
   </div>
-  <script type='text/javascript'>
-    window.markers = {{markers|safe}}
-  </script>
 {% endblock %}
