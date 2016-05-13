@@ -97,10 +97,24 @@
       <div class="col s12 m12 l12">
         <!-- Start twitter image cards -->
         {% for photo in t_pic %}
-          <div class="card grid-item">
-            <div class="card-image">
-              <img src="{{photo}}"/>
-            </div>
+          <div class="card grid-item image-card">
+            <a target="_blank" href="{{photo['tweet_url']}}">
+              <div class="card-image">
+                  <div class="image-hover"></div>
+                  <img class="media-image" src="{{photo['image_url']}}"/>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+
+        {% for photo in i_pic %}
+          <div class="card grid-item image-card">
+            <a target="_blank" href="{{photo['post_url']}}">
+              <div class="card-image">
+                  <div class="image-hover"></div>
+                  <img class="media-image" src="{{photo['image_url']}}"/>
+              </div>
+            </a>
           </div>
         {% endfor %}
       </div>

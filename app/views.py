@@ -72,7 +72,6 @@ def search():
 				current_marker.update(coordinates)
 				markers.append(current_marker)
 		insta_photos = insta.aggregate_photos(username)
-		photo.extend(insta_photos)
 		if not profile:
 			profile = insta.get_user_profile_picture(username)
 		i_stats = insta.get_instagram_stats(username)
@@ -90,6 +89,7 @@ def search():
 		t_loc=twitter_loc,
 		t_desc=twitter_des,
 		t_pic=photo,
+		i_pic=insta_photos,
 		markers=json.dumps(markers),
 		media_missing=media_missing,
 		no_locations=no_locations,

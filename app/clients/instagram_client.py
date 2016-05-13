@@ -97,12 +97,17 @@ class InstagramClient:
         if len(self.user_media['items']) == 0:
             raise MediaMissingException('No user media returned from API!')
 
-        photo_map = {}
-        for post in self.user_media["items"]:
-            photo_map[post["images"]["standard_resolution"]["url"]] = float(post["likes"]["count"]) + float(post["comments"]["count"])
-        sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
+        sorted_photos = []
+        for photo in self.user_media['items']:
+            sorted_photos.append({
+                'image_url': photo['images']['standard_resolution']['url'],
+                'post_url': photo['link'],
+                'likes': photo['likes']['count'],
+                'comments': photo['comments']['count']
+            })
 
-        return sort_map[:5]
+        sorted_photos = sorted(sorted_photos, key=lambda photo: photo['likes'] + photo['comments'], reverse=True)
+        return sorted_photos[:8]
 
 
     def get_following(self, username):
@@ -143,4 +148,3 @@ class InstagramClient:
         user = self.get_user(username)
         user_info = self.get_user_profile(user["id"])
         return user_info["data"]["counts"]
-

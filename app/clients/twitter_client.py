@@ -144,15 +144,21 @@ class TwitterClient:
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
 
-		photo_map = {}
+		sorted_photos = []
 		for tweet in self.timeline:
-			if "media" in tweet["entities"]:
-				if not tweet["text"].startswith('RT', 0, 2):
-					media = tweet["entities"]["media"]
+			if 'media' in tweet['entities']:
+				if not tweet['text'].startswith('RT', 0, 2):
+					media = tweet['entities']['media']
 					for url in media:
-						photo_map[url["media_url"]] = float(tweet["favorite_count"]) + float(tweet["retweet_count"])
-		sort_map = sorted(photo_map, key=photo_map.get, reverse=True)
-		return sort_map[:5]
+						sorted_photos.append({
+							'image_url': url['media_url'],
+							'tweet_url': url['expanded_url'],
+							'favorites': tweet['favorite_count'],
+							'retweets': tweet['retweet_count']
+						})
+
+		sorted_photos = sorted(sorted_photos, key=lambda photo: photo['favorites'] + photo['retweets'], reverse=True)
+		return sorted_photos[:8]
 
 
 	def get_following(self, screen_name):
