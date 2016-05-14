@@ -91,9 +91,9 @@
 
 
     <!-- Start second row -->
-    {% if t_pic|length > 0 %}
     <div class="row photo-grid">
 
+      {% if t_pic|length > 0 %}
       <div class="col s12 m12 l12">
         <!-- Start twitter image cards -->
         {% for photo in t_pic %}
@@ -115,7 +115,9 @@
             </a>
           </div>
         {% endfor %}
+      {% endif %}
 
+      {% if i_pic|length > 0 %}
         {% for photo in i_pic %}
           <div class="card grid-item image-card">
             <a target="_blank" href="{{photo['post_url']}}">
@@ -135,10 +137,10 @@
             </a>
           </div>
         {% endfor %}
+      {% endif %}
       </div>
 
     </div>
-    {% endif %}
     <!-- End second row -->
 
 
