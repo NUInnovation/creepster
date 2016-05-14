@@ -153,3 +153,10 @@
   opacity: 0.5;
   z-index: 2;
 }
+
+.icon-list {
+  position: absolute;
+  left: 40%;
+  font-size: x-large;
+  color: yellow;
+}
