@@ -51,8 +51,7 @@ def search():
 		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
 		t_stats = twttr.get_twitter_stats(screen_name)
 		animals = twttr.search_tweets(screen_name, ["cat", "dog", "puppy", "puppies", "kitten"], 100)
-		animal_person = max(len(x) for x in animals)
-		print animal_person
+		
 	except NoTwitterAccountException:
 		no_twitter = True
 
