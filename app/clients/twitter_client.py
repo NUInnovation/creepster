@@ -192,6 +192,19 @@ class TwitterClient:
 						links.append(urls["expanded_url"])
 		return links
 
+	def search_tweets(self, screen_name, querys, count):
+		tweets = self.search_tweets_for_user(screen_name, count)
+		output = {}
+		for tweet in tweets:
+			for query in querys:
+				if query in tweet:
+					if not output[query]:
+						output[query] = [tweet]
+					else:
+						output[query].append(tweet)
+		print output
+		return output
+
 	def get_twitter_stats(self, screen_name):
 		"""Compiles followers, number of tweets and following"""
 		if not self.timeline:

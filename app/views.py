@@ -38,6 +38,7 @@ def search():
 	profile =[]
 	links = []
 	t_stats = {}
+	animal_person = {}
 	try:
 		screen_name = twttr.search_username(name)
 		twitter_loc = twttr.user_location(screen_name)
@@ -49,6 +50,9 @@ def search():
 		profile =  [] if "default_profile_images" in p_url else p_url
 		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
 		t_stats = twttr.get_twitter_stats(screen_name)
+		animals = twttr.search_tweets(screen_name, ["cat", "dog", "puppy", "puppies", "kitten"], 100)
+		animal_person = max(len(x) for x in animals)
+		print animal_person
 	except NoTwitterAccountException:
 		no_twitter = True
 
