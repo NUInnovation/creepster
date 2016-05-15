@@ -131,3 +131,32 @@
 .large-text {
   font-size: x-large;
 }
+
+.grid-item {
+  width: 200px;
+}
+
+#map-wrapper {
+  margin-bottom: 0px !important;
+}
+
+.media-image {
+  z-index: 1;
+}
+
+.image-hover {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.icon-list {
+  position: absolute;
+  left: 40%;
+  font-size: x-large;
+  color: yellow;
+}

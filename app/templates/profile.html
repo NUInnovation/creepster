@@ -77,7 +77,7 @@
               <p class="large-text">
                 Followers: {{i_stats["followed_by"]}}
                 Following: {{i_stats["follows"]}}
-                Posts: {{t_stats["media"]}}
+                Posts: {{i_stats["media"]}}
               </p>
             </div>
           </div>
@@ -91,22 +91,56 @@
 
 
     <!-- Start second row -->
-    {% if t_pic|length > 0 %}
-    <div class="row">
+    <div class="row photo-grid">
 
-      <!-- Start twitter image cards -->
-      {% for photo in t_pic %}
-      <div class="col s6 m4 l3">
-        <div class="card">
-          <div class="card-image">
-            <img src="{{photo}}"/>
+      {% if t_pic|length > 0 %}
+      <div class="col s12 m12 l12">
+        <!-- Start twitter image cards -->
+        {% for photo in t_pic %}
+          <div class="card grid-item image-card">
+            <a target="_blank" href="{{photo['tweet_url']}}">
+              <div class="card-image">
+                  <div class="image-hover">
+                    <ul class="icon-list">
+                      <li>
+                        <span><i class="fa fa-retweet" aria-hidden="true"></i> {{photo['retweets']}} </span>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-star" aria-hidden="true"></i> {{photo['favorites']}} </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <img class="media-image" src="{{photo['image_url']}}"/>
+              </div>
+            </a>
           </div>
-        </div>
+        {% endfor %}
+      {% endif %}
+
+      {% if i_pic|length > 0 %}
+        {% for photo in i_pic %}
+          <div class="card grid-item image-card">
+            <a target="_blank" href="{{photo['post_url']}}">
+              <div class="card-image">
+                  <div class="image-hover">
+                    <ul class="icon-list">
+                      <li>
+                        <span><i class="fa fa-heart" aria-hidden="true"></i> {{photo['likes']}} </span>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-comment" aria-hidden="true"></i> {{photo['comments']}} </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <img class="media-image" src="{{photo['image_url']}}"/>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      {% endif %}
       </div>
-      {% endfor %}
 
     </div>
-    {% endif %}
     <!-- End second row -->
 
 
@@ -117,19 +151,22 @@
       <div class="col s12 m12 l12">
         <div class="card">
           <div class="card-content">
-        {% if media_missing %}
-          <p class="large-text">
-            We couldn't find a public Instagram account for {{search}}.
-          </p>
-        {% elif no_locations %}
-          <p class="large-text">
-            {{search}} did not share any locations on Instagram.
-          </p>
-        {% else %}
-          <div id="map-wrapper">
-            <div id="map-canvas" class="mapping"></div>
+          {% if media_missing %}
+            <p class="large-text">
+              We couldn't find a public Instagram account for {{search}}.
+            </p>
+          {% elif no_locations %}
+            <p class="large-text">
+              {{search}} did not share any locations on Instagram.
+            </p>
+          {% else %}
+            <div id="map-wrapper">
+              <div id="map-canvas" class="mapping"></div>
+            </div>
+          {% endif %}
+          <div class="card-action">
+            <p class="large-text"> Places {{search}} has been </p>
           </div>
-        {% endif %}
           </div>
         </div>
       </div>
