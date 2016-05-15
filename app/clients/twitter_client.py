@@ -7,6 +7,7 @@ import os
 # from twitter import *
 import twitter
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
+from app.exceptions.rate_limit_exception import RateLimitException
 
 class TwitterClient:
 	def __init__(self):
@@ -167,8 +168,11 @@ class TwitterClient:
 		try:
 			friends = self.t.friends.list(screen_name=screen_name, count=200)
 		except twitter.api.TwitterHTTPError as e:
-			print 'HTTP error occurred!'
-			return []
+			# HTTP error occurred
+			if e.response_data['errors'][0]['code'] == 88:
+				raise RateLimitException('Twitter')
+			else:
+				return []
 
 		return friends['users']
 
@@ -178,8 +182,11 @@ class TwitterClient:
 		try:
 			followers = self.t.followers.list(screen_name=screen_name, count=200)
 		except twitter.api.TwitterHTTPError as e:
-			print 'HTTP error occurred!'
-			return []
+			# HTTP error occurred
+			if e.response_data['errors'][0]['code'] == 88:
+				raise RateLimitException('Twitter')
+			else:
+				return []
 
 		return followers['users']
 
