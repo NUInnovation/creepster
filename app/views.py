@@ -10,6 +10,7 @@ from app.clients.twitter_client import TwitterClient
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
+from app.exceptions.rate_limit_exception import RateLimitException
 from app.services.user_network_service import UserNetworkService
 
 @app.route('/hello')
@@ -60,8 +61,10 @@ def search():
 	username = ''
 	media_missing = False
 	no_locations = False
+	rate_limited = False
 	markers = []
 	i_stats = {}
+	insta_photos = []
 	try:
 		username = user_network.get_best_instagram_username()
 		location_names = insta.get_location_names(username)
@@ -79,6 +82,8 @@ def search():
 		media_missing = True
 	except NoLocationsException:
 		no_locations = True
+	except RateLimitException:
+		rate_limited = True
 
 	# render template with template variables
 	return render_template(
@@ -94,6 +99,7 @@ def search():
 		media_missing=media_missing,
 		no_locations=no_locations,
 		no_twitter=no_twitter,
+		rate_limited=rate_limited,
 		profile=profile,
 		links=list(set(links)),
 		t_stats=t_stats,

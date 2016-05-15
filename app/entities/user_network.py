@@ -22,8 +22,8 @@ class UserNetwork:
         """Creates a simple model of a social network using Twitter and Instagram."""
         # get Twitter network
         twitter = TwitterClient()
-        self.twitter_following = twitter.get_following(self.twitter_username)
-        self.twitter_followers = twitter.get_followers(self.twitter_username)
+        self.twitter_following = twitter.get_following(self.twitter_username)[:5]
+        self.twitter_followers = twitter.get_followers(self.twitter_username)[:5]
 
         # get Instagram network
         insta = InstagramClient()

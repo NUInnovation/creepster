@@ -31,6 +31,8 @@
           <div class="card-content">
             {% if no_twitter %}
               <h3> {{search}} does not have a Twitter account or has protected tweeets </h3>
+            {% elif rate_limited %}
+              <h3> We're experiencing a lot of traffic and Twitter has blocked our API requests. Please try again shortly! </h3>
             {% else %}
               {% if hashtags|length > 0 %}
                 <div class="card-p">
@@ -159,14 +161,20 @@
             <p class="large-text">
               {{search}} did not share any locations on Instagram.
             </p>
+          {% elif rate_limited %}
+            <p class="large-text">
+              We're experiencing a lot of traffic and Twitter has blocked our API requests. Please try again shortly!
+            </p>
           {% else %}
             <div id="map-wrapper">
               <div id="map-canvas" class="mapping"></div>
             </div>
           {% endif %}
+          {% if not media_missing and not no_locations and not rate_limited %}
           <div class="card-action">
             <p class="large-text"> Places {{search}} has been </p>
           </div>
+          {% endif %}
           </div>
         </div>
       </div>
