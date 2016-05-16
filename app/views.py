@@ -49,7 +49,7 @@ def search():
 		photo = twttr.aggregate_photos(screen_name, 1000)
 		p_url = twttr.get_user_profile(screen_name)["profile_image_url_https"]
 		profile =  [] if "default_profile_images" in p_url else p_url
-		links = twttr.search_links(screen_name, ["itunes", "spotify"], 1000)
+		links = twttr.search_links(screen_name, ["itunes", "spotify", "sptfy"], 1000)
 		t_stats = twttr.get_twitter_stats(screen_name)
 		animals = twttr.search_tweets(screen_name, ["cat", "dog", "puppy", "kitten", "puppies"], 100)
 
