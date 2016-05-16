@@ -17,6 +17,12 @@
           <div class="card-content">
             <p>{{t_loc}}</p>
             <p>{{t_desc}}</p>
+            {% if "cat" in animals or "kitten" in animals%}
+            <p><img class="img-circle" src="{{ url_for('static', filename='cat_icon.png') }}" height="30" width="15" /> {{search}} likes cats</p>
+            {% endif %}
+            {% if "dog" in animals or "puppy" in animals or "puppies" in animals %}
+            <p><img class="img-circle" src="{{ url_for('static', filename='dog_icon.png') }}" height="30" width="20" /> {{search}} likes dogs</p>
+            {% endif %}
           </div>
         </div>
         {% else %}

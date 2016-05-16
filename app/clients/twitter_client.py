@@ -102,7 +102,7 @@ class TwitterClient:
 
 		hashtag_map = {}
 		for tweet in self.timeline:
-			for hashtag in tweet["entities"]["hashtags"]:
+			 for hashtag in tweet["entities"]["hashtags"]:
 				name = hashtag["text"]
 				if not name in hashtag_map:
 					hashtag_map[name] = 1
@@ -211,11 +211,10 @@ class TwitterClient:
 		for tweet in tweets:
 			for query in querys:
 				if query in tweet:
-					if not output[query]:
+					if not query in output:
 						output[query] = [tweet]
 					else:
 						output[query].append(tweet)
-		print output
 		return output
 
 	def get_twitter_stats(self, screen_name):
