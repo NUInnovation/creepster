@@ -42,7 +42,7 @@ def search():
 	animals = {}
 	try:
 		screen_name = twttr.search_username(name)
-		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify"], ["cat", "dog", "puppy", "kitten", "puppies"])
+		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify", "sptfy"], ["cat", "dog", "puppy", "kitten", "puppies"])
 		twitter_loc = data["location"]
 		twitter_des = data["description"]
 		hashtags = data["hashtags"]
