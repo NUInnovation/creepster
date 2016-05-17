@@ -14,6 +14,70 @@ class TwitterClient:
 		self.t = twitter.api.Twitter(auth=twitter.OAuth(os.getenv('TWITTER_ACCESS_TOKEN'), os.getenv('TWITTER_ACCESS_TOKEN_SECRET'), os.getenv('TWITTER_CONSUMER_KEY'), os.getenv('TWITTER_CONSUMER_SECRET')))
 		self.timeline = None
 
+	def fetch_data(self, screen_name, count, link_query, tweet_query):
+		if not self.timeline:
+			try:
+				self.timeline = self.download_timeline(screen_name, count)
+			except Exception:
+				raise NoTwitterAccountException('Tweets are protected')
+
+		hashtag_map = {}
+		retweet_map = {}
+		sorted_photos = []
+		links = []
+		kwd_output = {}
+		for tweet in self.timeline:
+			if tweet["text"].startswith('RT', 0, 2):
+				try:
+					handle = tweet["retweeted_status"]["user"]["name"]
+					if not handle in retweet_map:
+						retweet_map[handle] = 1
+					else:
+						retweet_map[handle] = retweet_map[handle] + 1
+				except Exception:
+					continue
+			if 'media' in tweet['entities']:
+				if not tweet['text'].startswith('RT', 0, 2):
+					media = tweet['entities']['media']
+					for url in media:
+						sorted_photos.append({
+							'image_url': url['media_url'],
+							'tweet_url': url['expanded_url'],
+							'favorites': tweet['favorite_count'],
+							'retweets': tweet['retweet_count']
+						})
+
+			if "urls" in tweet["entities"]:
+				for urls in tweet["entities"]["urls"]:
+					if any(query in urls["expanded_url"] for query in link_query):
+						links.append(urls["expanded_url"])
+
+			for query in tweet_query:
+				if query in tweet["text"]:
+					if not query in kwd_output:
+						kwd_output[query] = [tweet]
+					else:
+						kwd_output[query].append(tweet)
+
+			for hashtag in tweet["entities"]["hashtags"]:
+				name = hashtag["text"]
+				if not name in hashtag_map:
+					hashtag_map[name] = 1
+				else:
+					hashtag_map[name] = hashtag_map[name] + 1
+
+		sort_hash = sorted(hashtag_map, key=hashtag_map.get, reverse=True)
+		sort_tweet = sorted(retweet_map, key=retweet_map.get, reverse=True)
+		sorted_photos = sorted(sorted_photos, key=lambda photo: photo['favorites'] + photo['retweets'], reverse=True)
+		return {"hashtags": sort_hash[:4],
+		"retweet": sort_tweet[:4],
+		"photos": sorted_photos[:8],
+		"links": links,
+		"keyword_search": kwd_output,
+		"location": self.user_location(screen_name),
+		"description": self.user_description(screen_name),
+		"stats": self.get_twitter_stats(screen_name)}
+
 	def download_timeline(self, screen_name, count):
 		"""Download a user timeline and cache it locally (for now)."""
 		filename = 'app/cache/' + screen_name + '.txt'
