@@ -24,7 +24,7 @@ class TwitterClient:
 		hashtag_map = {}
 		retweet_map = {}
 		sorted_photos = []
-		links = []
+		links = {}
 		kwd_output = {}
 		for tweet in self.timeline:
 			if tweet["text"].startswith('RT', 0, 2):
@@ -49,8 +49,12 @@ class TwitterClient:
 
 			if "urls" in tweet["entities"]:
 				for urls in tweet["entities"]["urls"]:
-					if any(query in urls["expanded_url"] for query in link_query):
-						links.append(urls["expanded_url"])
+					for query in link_query:
+						if query in urls["expanded_url"]:
+							if query not in links:
+								links[query] = [urls['expanded_url']]
+							else:
+								links[query].append(urls["expanded_url"])
 
 			for query in tweet_query:
 				if query in tweet["text"]:
