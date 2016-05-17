@@ -104,7 +104,7 @@ def search():
 		no_twitter=no_twitter,
 		rate_limited=rate_limited,
 		profile=profile,
-		links=list(set(links)),
+		links=links,
 		t_stats=t_stats,
 		i_stats=i_stats,
 		animals=animals

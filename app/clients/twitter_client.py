@@ -197,12 +197,17 @@ class TwitterClient:
 				self.timeline = self.download_timeline(screen_name, count)
 			except Exception:
 				raise NoTwitterAccountException('Tweets are protected')
-		links = []
+		links = {}
 		for tweet in self.timeline:
 			if "urls" in tweet["entities"]:
 				for urls in tweet["entities"]["urls"]:
-					if any(query in urls["expanded_url"] for query in querys):
-						links.append(urls["expanded_url"])
+					for query in querys:
+						if query in urls["expanded_url"]:
+							if query not in links:
+								links[query] = [urls['expanded_url']]
+							else:
+								links[query].append(urls['expanded_url'])
+
 		return links
 
 	def search_tweets(self, screen_name, querys, count):
