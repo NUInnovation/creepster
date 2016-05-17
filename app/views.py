@@ -78,8 +78,8 @@ def search():
 				current_marker.update(coordinates)
 				markers.append(current_marker)
 		insta_photos = insta.aggregate_photos(username)
-		if not profile:
-			profile = insta.get_user_profile_picture(username)
+		insta_prof = insta.get_user_profile_picture(username)
+		profile = profile if not insta_prof else insta_prof
 		i_stats = insta.get_instagram_stats(username)
 	except MediaMissingException:
 		media_missing = True
