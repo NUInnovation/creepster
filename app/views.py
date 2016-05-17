@@ -6,6 +6,7 @@ from app import app
 
 from app.clients.instagram_client import InstagramClient
 from app.clients.geolocation_client import GeolocationClient
+from app.clients.spotify_client import SpotifyClient
 from app.clients.twitter_client import TwitterClient
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
@@ -88,6 +89,10 @@ def search():
 	except RateLimitException:
 		rate_limited = True
 
+	# split spotify urls
+	spotify = SpotifyClient(links['spotify'])
+	spotify_uris = spotify.generate_uris()
+
 	# render template with template variables
 	return render_template(
 		'profile.html',
@@ -105,6 +110,7 @@ def search():
 		rate_limited=rate_limited,
 		profile=profile,
 		links=links,
+		spotify_uris=spotify_uris,
 		t_stats=t_stats,
 		i_stats=i_stats,
 		animals=animals
