@@ -42,17 +42,17 @@ def search():
 	animals = {}
 	try:
 		screen_name = twttr.search_username(name)
-		twitter_loc = twttr.user_location(screen_name)
-		twitter_des = twttr.user_description(screen_name)
-		hashtags = twttr.aggregate_hashtags(screen_name, 3200)
-		retweet = twttr.aggregate_retweets(screen_name, 3200)
-		photo = twttr.aggregate_photos(screen_name, 1000)
+		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify", "sptfy"], ["cat", "dog", "puppy", "kitten", "puppies"])
+		twitter_loc = data["location"]
+		twitter_des = data["description"]
+		hashtags = data["hashtags"]
+		retweet = data["retweet"]
+		photo = data["photos"]
 		p_url = twttr.get_user_profile(screen_name)["profile_image_url_https"]
 		profile =  [] if "default_profile_images" in p_url else p_url
-		links = twttr.search_links(screen_name, ["itunes", "spotify", "sptfy"], 1000)
-		t_stats = twttr.get_twitter_stats(screen_name)
-		animals = twttr.search_tweets(screen_name, ["cat", "dog", "puppy", "kitten", "puppies"], 100)
-
+		links = data["links"]
+		t_stats = data["stats"]
+		animals = data["keyword_search"]
 	except NoTwitterAccountException:
 		no_twitter = True
 
