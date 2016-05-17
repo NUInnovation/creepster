@@ -28,6 +28,6 @@ class SpotifyClient:
     def convert_to_uri(self, link_type, url):
         """Converts a Spotify URL into a URI."""
         unique_id = url.split('/')[-1]
-        return 'spotify%3{link_type}%3{unique_id}'.format(
+        return 'spotify%3A{link_type}%3A{unique_id}'.format(
             link_type=link_type, unique_id=unique_id
         )

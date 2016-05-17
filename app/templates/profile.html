@@ -191,20 +191,39 @@
 
 
     <!-- Start fourth row -->
-    {% if links|length > 0 %}
+    {% if spotify_uris['track']|length > 0 or spotify_uris['artist']|length > 0 or spotify_uris['album']|length > 0 or spotify_uris['playlist']|length > 0 %}
     <div class="row">
 
-      <!-- Start links card -->
-      <div class="col s12 m6 l6">
+      <!-- Start Spotify card -->
+      <div class="col s12 m12 l12">
         <div class="card">
           <div class="card-content">
-            {% for link in links %}
-              <a href="{{link}}"> {{link}} </a>
+            <!-- Tracks -->
+            {% for track in spotify_uris['track'] %}
+              <iframe src="https://embed.spotify.com/?uri={{track}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
             {% endfor %}
+
+            <!-- Artists -->
+            {% for artist in spotify_uris['artist'] %}
+              <iframe src="https://embed.spotify.com/?uri={{artist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+            {% endfor %}
+
+            <!-- Albums -->
+            {% for album in spotify_uris['album'] %}
+              <iframe src="https://embed.spotify.com/?uri={{album}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+            {% endfor %}
+
+            <!-- Playlists -->
+            {% for playlist in spotify_uris['playlist'] %}
+              <iframe src="https://embed.spotify.com/?uri={{playlist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+            {% endfor %}
+          </div>
+          <div class="card-action">
+            <p class="large-text">Music {{search}} enjoys </p>
           </div>
         </div>
       </div>
-      <!-- End links card -->
+      <!-- End Spotify card -->
 
     </div>
     {% endif %}
