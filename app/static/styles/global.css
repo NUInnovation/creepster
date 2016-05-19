@@ -160,3 +160,7 @@
   font-size: x-large;
   color: yellow;
 }
+
+.iframe-full-width {
+  width: 100%;
+}

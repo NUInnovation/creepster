@@ -218,9 +218,6 @@
               <iframe src="https://embed.spotify.com/?uri={{playlist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
             {% endfor %}
           </div>
-          <div class="card-action">
-            <p class="large-text">Music {{search}} enjoys </p>
-          </div>
         </div>
       </div>
       <!-- End Spotify card -->
@@ -228,6 +225,26 @@
     </div>
     {% endif %}
     <!-- End fourth row -->
+
+
+    <!-- Start fifth row -->
+    {% if youtube_uris|length > 0 %}
+    <div class="row">
+
+      <!-- Start youtube cards -->
+      {% for uri in youtube_uris %}
+      <div class="col s12 m6 l6">
+        <div class="card">
+          <div class="card-content">
+            <iframe class="iframe-full-width" height="320" src="{{uri}}" frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+    <!-- End fifth row -->
 
 
     <script type='text/javascript'>

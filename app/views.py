@@ -8,6 +8,7 @@ from app.clients.instagram_client import InstagramClient
 from app.clients.geolocation_client import GeolocationClient
 from app.clients.spotify_client import SpotifyClient
 from app.clients.twitter_client import TwitterClient
+from app.clients.youtube_client import YoutubeClient
 from app.exceptions.media_missing_exception import MediaMissingException
 from app.exceptions.no_locations_exception import NoLocationsException
 from app.exceptions.no_twitter_account_exception import NoTwitterAccountException
@@ -43,7 +44,7 @@ def search():
 	animals = {}
 	try:
 		screen_name = twttr.search_username(name)
-		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify", "sptfy"], ["cat", "dog", "puppy", "kitten", "puppies"])
+		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify", "sptfy", 'youtube'], ["cat", "dog", "puppy", "kitten", "puppies"])
 		twitter_loc = data["location"]
 		twitter_des = data["description"]
 		hashtags = data["hashtags"]
@@ -93,6 +94,10 @@ def search():
 	spotify = SpotifyClient(links['spotify'])
 	spotify_uris = spotify.generate_uris()
 
+	# split youtube urls
+	youtube = YoutubeClient(links['youtube'])
+	youtube_uris = youtube.generate_uris()
+
 	# render template with template variables
 	return render_template(
 		'profile.html',
@@ -109,8 +114,8 @@ def search():
 		no_twitter=no_twitter,
 		rate_limited=rate_limited,
 		profile=profile,
-		links=links,
 		spotify_uris=spotify_uris,
+		youtube_uris=youtube_uris,
 		t_stats=t_stats,
 		i_stats=i_stats,
 		animals=animals

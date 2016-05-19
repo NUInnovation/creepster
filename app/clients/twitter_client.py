@@ -34,7 +34,7 @@ class TwitterClient:
 						retweet_map[handle] = 1
 					else:
 						retweet_map[handle] = retweet_map[handle] + 1
-				except Exception:
+				except KeyError:
 					continue
 			if 'media' in tweet['entities']:
 				if not tweet['text'].startswith('RT', 0, 2):
