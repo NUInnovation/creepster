@@ -161,6 +161,12 @@
   color: yellow;
 }
 
-.iframe-full-width {
+.iframe-spotify {
+  display: block;
+  margin: 0 auto;
+}
+
+.iframe-youtube {
+  display: block;
   width: 100%;
 }

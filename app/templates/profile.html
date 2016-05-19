@@ -193,35 +193,53 @@
     <!-- Start fourth row -->
     {% if spotify_uris['track']|length > 0 or spotify_uris['artist']|length > 0 or spotify_uris['album']|length > 0 or spotify_uris['playlist']|length > 0 %}
     <div class="row">
+      <!-- Start Spotify cards -->
 
-      <!-- Start Spotify card -->
-      <div class="col s12 m12 l12">
+      <!-- Tracks -->
+      {% for track in spotify_uris['track'] %}
+      <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-content">
-            <!-- Tracks -->
-            {% for track in spotify_uris['track'] %}
-              <iframe src="https://embed.spotify.com/?uri={{track}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
-            {% endfor %}
-
-            <!-- Artists -->
-            {% for artist in spotify_uris['artist'] %}
-              <iframe src="https://embed.spotify.com/?uri={{artist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
-            {% endfor %}
-
-            <!-- Albums -->
-            {% for album in spotify_uris['album'] %}
-              <iframe src="https://embed.spotify.com/?uri={{album}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
-            {% endfor %}
-
-            <!-- Playlists -->
-            {% for playlist in spotify_uris['playlist'] %}
-              <iframe src="https://embed.spotify.com/?uri={{playlist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
-            {% endfor %}
+            <iframe class="iframe-spotify" src="https://embed.spotify.com/?uri={{track}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
           </div>
         </div>
       </div>
-      <!-- End Spotify card -->
+      {% endfor %}
 
+      <!-- Artists -->
+      {% for artist in spotify_uris['artist'] %}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-content">
+            <iframe class="iframe-spotify" src="https://embed.spotify.com/?uri={{artist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Albums -->
+      {% for album in spotify_uris['album'] %}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-content">
+            <iframe class="iframe-spotify" src="https://embed.spotify.com/?uri={{album}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Playlists -->
+      {% for playlist in spotify_uris['playlist'] %}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-content">
+            <iframe class="iframe-spotify" src="https://embed.spotify.com/?uri={{playlist}}" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- End Spotify cards -->
     </div>
     {% endif %}
     <!-- End fourth row -->
@@ -231,16 +249,17 @@
     {% if youtube_uris|length > 0 %}
     <div class="row">
 
-      <!-- Start youtube cards -->
+      <!-- Start Youtube cards -->
       {% for uri in youtube_uris %}
       <div class="col s12 m6 l6">
         <div class="card">
           <div class="card-content">
-            <iframe class="iframe-full-width" height="320" src="{{uri}}" frameborder="0"></iframe>
+            <iframe class="iframe-youtube" height="320" src="{{uri}}" frameborder="0"></iframe>
           </div>
         </div>
       </div>
       {% endfor %}
+      <!-- End youtube cards -->
 
     </div>
     {% endif %}
