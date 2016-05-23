@@ -64,7 +64,7 @@
 
 .tt-suggestion.tt-cursor,.tt-suggestion:hover {
   color: #fff;
-  background-color: #b3cce6;
+  background-color: #F47C23;
 
 }
 
@@ -74,11 +74,10 @@
 
 .head-logo {
 	display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-
-    padding-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  padding-top: 10%;
 }
 
 #search-box {
