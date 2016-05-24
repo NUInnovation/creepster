@@ -301,3 +301,15 @@ class TwitterClient:
 		'followers': self.timeline[0]["user"]["followers_count"],
 		'tweets': self.timeline[0]["user"]["statuses_count"],
 		'following': self.timeline[0]["user"]["friends_count"]}
+
+	def get_verified_followers(self, screen_name):
+		"""Returns a list of verified profiles that follow the current user."""
+		followers = self.get_followers(screen_name)
+		verified_followers = filter(lambda follower: follower['verified'] == True, followers)
+		return verified_followers
+
+	def get_verified_following(self, screen_name):
+		"""Returns a list of verified profiles that are followed by the current user."""
+		following = self.get_followers(screen_name)
+		verified_following = filter(lambda f: f['verified'] == True, following)
+		return verified_following
