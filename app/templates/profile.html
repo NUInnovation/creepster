@@ -45,7 +45,11 @@
                   <p class="large-text">
                     {{search}} often retweets:
                     {% for ht in hashtags %}
-                      #{{ht}},
+                      {% if not loop.last %}
+                        #{{ht}},
+                      {% else %}
+                        #{{ht}}
+                      {% endif %}
                     {% endfor %}
                   </p>
                 </div>
@@ -56,7 +60,41 @@
                   <p class="large-text">
                     {{search}} promotes:
                     {% for rt in retweet %}
-                      {{rt}},
+                      {% if not loop.last %}
+                        {{rt}},
+                      {% else %}
+                        {{rt}}
+                      {% endif %}
+                    {% endfor %}
+                  </p>
+                </div>
+              {% endif %}
+
+              {% if verified_followers|length > 0 %}
+                <div class="card-p">
+                  <p class="large-text">
+                    {{search}} follows:
+                    {% for follower in verified_followers %}
+                      {% if not loop.last %}
+                        {{follower}},
+                      {% else %}
+                        {{follower}}
+                      {% endif %}
+                    {% endfor %}
+                  </p>
+                </div>
+              {% endif %}
+
+              {% if verified_following|length > 0 %}
+                <div class="card-p">
+                  <p class="large-text">
+                    People that follow {{search}} include:
+                    {% for following in verified_following %}
+                      {% if not loop.last %}
+                        {{following}},
+                      {% else %}
+                        {{following}}
+                      {% endif %}
                     {% endfor %}
                   </p>
                 </div>

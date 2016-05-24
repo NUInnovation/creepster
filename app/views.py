@@ -42,6 +42,8 @@ def search():
 	links = []
 	t_stats = {}
 	animals = {}
+	verified_followers = []
+	verified_following = []
 	try:
 		screen_name = twttr.search_username(name)
 		data = twttr.fetch_data(screen_name, 1000, ["itunes", "spotify", "sptfy", 'youtube'], ["cat", "dog", "puppy", "kitten", "puppies"])
@@ -55,6 +57,8 @@ def search():
 		links = data["links"]
 		t_stats = data["stats"]
 		animals = data["keyword_search"]
+		verified_followers = twttr.get_verified_followers(screen_name)[:5]
+		verified_following = twttr.get_verified_following(screen_name)[-5:]
 	except NoTwitterAccountException:
 		no_twitter = True
 
@@ -102,6 +106,10 @@ def search():
 		youtube = YoutubeClient(links['youtube'])
 		youtube_uris = youtube.generate_uris()
 
+	# grab names of verified followers/following
+	verified_follower_names = [follower['name'] for follower in verified_followers]
+	verified_following_names = [following['name'] for following in verified_following]
+
 	# render template with template variables
 	return render_template(
 		'profile.html',
@@ -122,7 +130,9 @@ def search():
 		youtube_uris=youtube_uris,
 		t_stats=t_stats,
 		i_stats=i_stats,
-		animals=animals
+		animals=animals,
+		verified_followers=verified_follower_names,
+		verified_following=verified_following_names
 	)
 
 
