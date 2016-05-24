@@ -91,12 +91,16 @@ def search():
 		rate_limited = True
 
 	# split spotify urls
-	spotify = SpotifyClient(links['spotify'])
-	spotify_uris = spotify.generate_uris()
+	spotify_uris = []
+	if 'spotify' in links:
+		spotify = SpotifyClient(links['spotify'])
+		spotify_uris = spotify.generate_uris()
 
 	# split youtube urls
-	youtube = YoutubeClient(links['youtube'])
-	youtube_uris = youtube.generate_uris()
+	youtube_uris = []
+	if 'youtube' in links:
+		youtube = YoutubeClient(links['youtube'])
+		youtube_uris = youtube.generate_uris()
 
 	# render template with template variables
 	return render_template(
