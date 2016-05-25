@@ -14,16 +14,18 @@
             <img src="{{profile}}">
             <span class="card-title"> {{search}} </span>
           </div>
-          <div class="card-content">
-            <p>{{t_loc}}</p>
-            <p>{{t_desc}}</p>
-            {% if "cat" in animals or "kitten" in animals%}
-            <p><img class="img-circle" src="{{ url_for('static', filename='cat_icon.png') }}" height="30" width="15" /> {{search}} likes cats</p>
-            {% endif %}
-            {% if "dog" in animals or "puppy" in animals or "puppies" in animals %}
-            <p><img class="img-circle" src="{{ url_for('static', filename='dog_icon.png') }}" height="30" width="20" /> {{search}} likes dogs</p>
-            {% endif %}
-          </div>
+          {% if not no_twitter  %}
+            <div class="card-content">
+              <p>{{t_loc}}</p>
+              <p>{{t_desc}}</p>
+              {% if "cat" in animals or "kitten" in animals%}
+              <p><img class="img-circle" src="{{ url_for('static', filename='cat_icon.png') }}" height="30" width="15" /> {{search}} likes cats</p>
+              {% endif %}
+              {% if "dog" in animals or "puppy" in animals or "puppies" in animals %}
+              <p><img class="img-circle" src="{{ url_for('static', filename='dog_icon.png') }}" height="30" width="20" /> {{search}} likes dogs</p>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
         {% else %}
          <img class="img-circle" src="{{ url_for('static', filename='avatar.png') }}" height="200" width="200" />
@@ -36,7 +38,7 @@
         <div class="card">
           <div class="card-content">
             {% if no_twitter %}
-              <h3> {{search}} does not have a Twitter account or has protected tweeets </h3>
+              <h3> {{search}} does not have a Twitter account or has protected tweets </h3>
             {% elif rate_limited %}
               <h3> We're experiencing a lot of traffic and Twitter has blocked our API requests. Please try again shortly! </h3>
             {% else %}
