@@ -1,10 +1,10 @@
-# Creepster
+# Fetch (formerly Creepster)
 ### We Know Who You Are
 
-## What is Creepster?
-Creepster is an simple tool that takes a person's name and searches various social media and websites to find as much information on the person as possible. This can range from their address to which causes they publicly support. The purpose of Creepster is to make people aware of how much information they reveal about themselves online.
+## What is Fetch?
+Fetch is an simple tool that takes a person's name and searches various social media and websites to find as much information on the person as possible. This can range from their address to which causes they publicly support. The purpose of Fetch is to make people aware of how much information they reveal about themselves online.
 
-#### Currently Creepster searches:
+#### Currently Fetch searches:
 * Twitter
 * Instagram
 * Spotify
@@ -19,7 +19,7 @@ Creepster is an simple tool that takes a person's name and searches various soci
 
 
 ## How to run locally
-If you want to run Creepster on your computer, follow these steps:
+Fetch uses Flask, a lightweight web framework written in Python. If you want to run Fetch on your computer, follow these steps:
 * Clone the repo and install the dependencies (recommended: using a virtualenv)
 ```shell
 git clone https://github.com/NUInnovation/creepster.git
