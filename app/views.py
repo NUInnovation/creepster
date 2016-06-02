@@ -63,7 +63,7 @@ def search():
 		no_twitter = True
 
 	# get instagram data
-	user_network = UserNetworkService(screen_name)
+	# user_network = UserNetworkService(screen_name)
 	insta = InstagramClient()
 	geolocation = GeolocationClient()
 	search_term = request.form['search']
@@ -75,7 +75,8 @@ def search():
 	i_stats = {}
 	insta_photos = []
 	try:
-		username = user_network.get_best_instagram_username()
+		# username = user_network.get_best_instagram_username()
+		username = insta.get_username(screen_name)
 		location_names = insta.get_location_names(username)
 		for location in location_names:
 			current_marker = {'title': location}

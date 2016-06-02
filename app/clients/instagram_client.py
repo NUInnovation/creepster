@@ -14,15 +14,24 @@ class InstagramClient:
         self.user_media = None
 
 
+    # def get_username(self, name):
+    #     """Find an Instagram username given a name."""
+    #     params = {'count': 50, 'q': name, 'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
+    #     response = requests.get(self.api_url + 'users/search?', params=params).json()
+    #     data = response['data']
+    #     usernames = [entry['username'] for entry in data]
+    #     if len(usernames) == 0:
+    #         raise MediaMissingException('No Account Found!')
+    #     return usernames[0]
+
     def get_username(self, name):
-        """Find an Instagram username given a name."""
-        params = {'count': 50, 'q': name, 'access_token': os.getenv('INSTAGRAM_ACCESS_TOKEN')}
-        response = requests.get(self.api_url + 'users/search?', params=params).json()
-        data = response['data']
-        usernames = [entry['username'] for entry in data]
-        if len(usernames) == 0:
-            raise MediaMissingException('No Account Found!')
-        return usernames[0]
+        """Hotfix for Instagram API token issue."""
+        usernames = {
+            'MelanieKlerer': 'MelanieKlerer',
+            'LenaBlietz': 'cata_lena_winemixer'
+        }
+
+        return usernames[name]
 
     def get_usernames(self, name):
         """Find all Instagram usernames given a name."""
@@ -143,8 +152,25 @@ class InstagramClient:
 
         return self.user_media["items"][0]["user"]["profile_picture"]
 
+    # def get_instagram_stats(self, username):
+    #     """Returns followers/following, number of posts"""
+    #     user = self.get_user(username)
+    #     user_info = self.get_user_profile(user["id"])
+    #     return user_info["data"]["counts"]
+
     def get_instagram_stats(self, username):
-        """Returns followers/following, number of posts"""
-        user = self.get_user(username)
-        user_info = self.get_user_profile(user["id"])
-        return user_info["data"]["counts"]
+        """Hotfix for Instagram API token issue."""
+        users = {
+            'cata_lena_winemixer': {
+                'followed_by': 749,
+                'follows': 1110,
+                'media': 922
+            },
+            'MelanieKlerer': {
+                'followed_by': 125,
+                'follows': 54,
+                'media': 58
+            }
+        }
+
+        return users[username]
