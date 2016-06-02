@@ -7,10 +7,8 @@ Creepster is an simple tool that takes a person's name and searches various soci
 #### Currently Creepster searches:
 * Twitter
 * Instagram
-
-#### Soon to be added:
-* Pinterest
-* 411
+* Spotify
+* Youtube
 
 
 ## Team Members
